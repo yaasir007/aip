@@ -1,7 +1,7 @@
 <script setup>
-// import { CircleArrowRight, CircleArrowLeft } from 'lucide-vue-next';
 </script>
 
 <template>
   <Navigation />
+  <Home />
 </template>
