@@ -16,11 +16,32 @@
       </p>
 
       <!-- Basic Filter -->
-      <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg p-6 max-w-4xl mx-auto">
+      <div class="bg-[#FEF4E0] bg-opacity-30 backdrop-filter backdrop-blur-lg rounded-lg p-6 max-w-4xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+          <!-- <div>
+            <label for="HeadlineAct" class="block text-sm font-medium"> Headliner </label>
+
+            <select
+              name="HeadlineAct"
+              id="HeadlineAct"
+              class="mt-1 w-full border-gray-300 px-2 py-1.5 rounded-sm text-gray-700 sm:text-sm"
+            >
+              <option value="">Please select</option>
+              <option value="JM">John Mayer</option>
+              <option value="SRV">Stevie Ray Vaughn</option>
+              <option value="JH">Jimi Hendrix</option>
+              <option value="BBK">B.B King</option>
+              <option value="AK">Albert King</option>
+              <option value="BG">Buddy Guy</option>
+              <option value="EC">Eric Clapton</option>
+            </select>
+          </div> -->
+
+
           <div class="relative">
             <label for="property-type" class="block text-sm font-medium mb-1">Property Type</label>
-            <select id="property-type" v-model="filters.propertyType" class="w-full bg-white bg-opacity-20 rounded-md border-0 text-white appearance-none pr-8 focus:ring-2 focus:ring-white">
+            <select id="property-type" v-model="filters.propertyType" class="w-full bg-white bg-opacity-30 rounded-md border-0 text-white appearance-none px-2 py-1.5 focus:ring-2 focus:ring-white">
               <option value="">Any</option>
               <option value="house">House</option>
               <option value="apartment">Apartment</option>
@@ -30,13 +51,14 @@
             </select>
             <ChevronDownIcon class="absolute right-3 top-9 w-5 h-5 text-white pointer-events-none" />
           </div>
+
           <div>
             <label for="location" class="block text-sm font-medium mb-1">Location</label>
-            <input type="text" id="location" v-model="filters.location" placeholder="Enter city or zip code" class="w-full bg-white bg-opacity-20 rounded-md border-0 text-white placeholder-gray-300 focus:ring-2 focus:ring-white" />
+            <input type="text" id="location" v-model="filters.location" placeholder="Enter city or zip code" class="w-full px-2 py-1.5 bg-white bg-opacity-20 rounded-md border-0 text-white placeholder-gray-300 focus:ring-2 focus:ring-white" />
           </div>
           <div class="relative">
             <label for="price-range" class="block text-sm font-medium mb-1">Price Range</label>
-            <select id="price-range" v-model="filters.priceRange" class="w-full bg-white bg-opacity-20 rounded-md border-0 text-white appearance-none pr-8 focus:ring-2 focus:ring-white">
+            <select id="price-range" v-model="filters.priceRange" class="w-full bg-white px-2 py-1.5 bg-opacity-20 rounded-md border-0 text-white appearance-none pr-8 focus:ring-2 focus:ring-white">
               <option value="">Any</option>
               <option value="0-100000">$0 - $100,000</option>
               <option value="100000-250000">$100,000 - $250,000</option>
@@ -48,11 +70,11 @@
           </div>
         </div>
         <div class="mt-6 flex justify-between items-center">
-          <button @click="openAdvancedFilter" class="text-white hover:underline focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900 flex items-center">
+          <button @click="openAdvancedFilter" class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-[#036E5C] hover:underline flex items-center">
             <SlidersIcon class="w-4 h-4 mr-1" />
             Advanced Filter
           </button>
-          <button @click="search" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 flex items-center">
+          <button @click="search" class="bg-[#036E5C] hover:bg-blue-700 text-white px-5 py-2.5 rounded-md flex items-center">
             <SearchIcon class="w-4 h-4 mr-1" />
             Search
           </button>
@@ -74,7 +96,7 @@
             <div>
               <label for="bedrooms" class="block text-sm font-medium text-gray-700">Bedrooms</label>
               <div class="mt-1 relative rounded-md shadow-sm">
-                <input type="number" id="bedrooms" v-model.number="advancedFilters.bedrooms" min="0" class="block w-full pr-10 focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md" placeholder="Any" />
+                <input type="number" id="bedrooms" v-model.number="advancedFilters.bedrooms" min="0" class="block p-2 w-full pr-10 focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md" placeholder="Any" />
                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                   <BedIcon class="h-5 w-5 text-gray-400" />
                 </div>
@@ -83,7 +105,7 @@
             <div>
               <label for="bathrooms" class="block text-sm font-medium text-gray-700">Bathrooms</label>
               <div class="mt-1 relative rounded-md shadow-sm">
-                <input type="number" id="bathrooms" v-model.number="advancedFilters.bathrooms" min="0" step="0.5" class="block w-full pr-10 focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md" placeholder="Any" />
+                <input type="number" id="bathrooms" v-model.number="advancedFilters.bathrooms" min="0" step="0.5" class="p-2 block w-full pr-10 focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md" placeholder="Any" />
                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                   <ShowerHeadIcon class="h-5 w-5 text-gray-400" />
                 </div>
@@ -92,7 +114,7 @@
             <div>
               <label for="square-feet" class="block text-sm font-medium text-gray-700">Square Feet</label>
               <div class="mt-1 relative rounded-md shadow-sm">
-                <input type="number" id="square-feet" v-model.number="advancedFilters.squareFeet" min="0" class="block w-full pr-10 focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md" placeholder="Any" />
+                <input type="number" id="square-feet" v-model.number="advancedFilters.squareFeet" min="0" class="p-2 block w-full pr-10 focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md" placeholder="Any" />
                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                   <SquareIcon class="h-5 w-5 text-gray-400" />
                 </div>
@@ -101,7 +123,7 @@
             <div>
               <label for="year-built" class="block text-sm font-medium text-gray-700">Year Built</label>
               <div class="mt-1 relative rounded-md shadow-sm">
-                <input type="number" id="year-built" v-model.number="advancedFilters.yearBuilt" min="1800" max="2099" class="block w-full pr-10 focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md" placeholder="Any" />
+                <input type="number" id="year-built" v-model.number="advancedFilters.yearBuilt" min="1800" max="2099" class="p-2 block w-full pr-10 focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md" placeholder="Any" />
                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                   <CalendarIcon class="h-5 w-5 text-gray-400" />
                 </div>
@@ -110,7 +132,7 @@
             <div>
               <label for="lot-size" class="block text-sm font-medium text-gray-700">Lot Size (acres)</label>
               <div class="mt-1 relative rounded-md shadow-sm">
-                <input type="number" id="lot-size" v-model.number="advancedFilters.lotSize" min="0" step="0.1" class="block w-full pr-10 focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md" placeholder="Any" />
+                <input type="number" id="lot-size" v-model.number="advancedFilters.lotSize" min="0" step="0.1" class="p-2 block w-full pr-10 focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md" placeholder="Any" />
                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                   <TreesIcon class="h-5 w-5 text-gray-400" />
                 </div>
@@ -119,7 +141,7 @@
             <div>
               <label for="stories" class="block text-sm font-medium text-gray-700">Stories</label>
               <div class="mt-1 relative rounded-md shadow-sm">
-                <input type="number" id="stories" v-model.number="advancedFilters.stories" min="1" max="100" class="block w-full pr-10 focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md" placeholder="Any" />
+                <input type="number" id="stories" v-model.number="advancedFilters.stories" min="1" max="100" class="p-2 block w-full pr-10 focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md" placeholder="Any" />
                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                   <HomeIcon class="h-5 w-5 text-gray-400" />
                 </div>
@@ -145,10 +167,10 @@
             </div>
           </div>
           <div class="mt-6 flex justify-end space-x-3">
-            <button @click="closeAdvancedFilter" class="inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm">
+            <button @click="closeAdvancedFilter" class="inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 sm:text-sm">
               Cancel
             </button>
-            <button @click="applyAdvancedFilters" class="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm">
+            <button @click="applyAdvancedFilters" class="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#036E5C] text-base font-medium text-white sm:text-sm">
               Apply Filters
             </button>
           </div>
@@ -181,12 +203,12 @@ const advancedFilters = reactive({
 
 const propertyFeatures = [
   'Garage', 'Basement', 'Fireplace', 'Central Air', 'Hardwood Floors',
-  'Solar Panels', 'Smart Home', 'Waterfront', 'Mountain View', 'Fenced Yard'
+  'Solar Panels', 'Smart Home', 'Waterfront', 'Mountain View'
 ]
 
 const amenities = [
   'Pool', 'Gym', 'Tennis Court', 'Playground', 'Clubhouse',
-  'Gated Community', 'Pet Friendly', 'Elevator', 'Parking', 'Laundry Facility'
+  'Gated Community', 'Pet Friendly', 'Elevator', 'Parking'
 ]
 
 const isAdvancedFilterOpen = ref(false)

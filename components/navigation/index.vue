@@ -6,8 +6,9 @@
     <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <div class="flex-1 md:flex md:items-center md:gap-12">
-          <a class="block text-teal-600" href="#">
-            <span style="font-family: 'Avenir Next Condensed'; font-size: 2rem; text-decoration: underline;">AIP</span>
+          <a class="block" href="/">
+            <!-- <span style="font-family: 'Avenir Next Condensed'; font-size: 2rem; text-decoration: underline;">AIP</span> -->
+            <img src="/public/logo.svg" alt="" width="50">
           </a>
         </div>
 
@@ -43,7 +44,7 @@
           <div class="flex items-center gap-4">
             <div class="sm:flex sm:gap-4">
               <a
-                  class="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
+                  class="rounded-md bg-[#036E5C] px-5 py-2.5 text-sm font-medium text-white shadow"
                   href="#"
               >
                 Login
@@ -51,7 +52,7 @@
 
               <div class="hidden sm:flex">
                 <a
-                    class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
+                    class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-[#036E5C]"
                     href="#"
                 >
                   Register

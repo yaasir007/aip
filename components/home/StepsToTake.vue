@@ -1,8 +1,8 @@
 <template>
   <div class="max-w-7xl mx-auto px-4 py-16" style="height: 80vh;">
     <div class="text-center mb-12">
-      <h2 class="text-4xl font-bold text-gray-900 mb-4 animate-fade-in">Want to publish your property?</h2>
-      <p class="text-lg text-gray-600 animate-fade-in-delay">
+      <h2 class="text-4xl font-bold text-gray-900 mb-4">Want to publish your property?</h2>
+      <p class="text-lg text-gray-600">
         Grab the opportunity to publish your properties on our platform for free!
       </p>
     </div>
@@ -10,23 +10,16 @@
     <div class="grid md:grid-cols-3 gap-8 mt-16">
       <template v-for="(step, index) in steps" :key="step.title">
         <div
-            class="text-center transform transition duration-500 hover:scale-105"
-            @mouseenter="hoveredStep = index"
-            @mouseleave="hoveredStep = null"
+            class="text-center"
         >
           <div class="relative inline-block">
             <div
                 class="w-24 h-24 bg-white rounded-full border-2 border-dashed border-gray-200 flex items-center justify-center mx-auto overflow-hidden"
-                :class="{ 'animate-pulse': hoveredStep === index }"
             >
               <component :is="step.icon" class="w-8 h-8 text-gray-700" />
             </div>
             <div
-                class="absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-medium transition-all duration-300 ease-in-out"
-                :class="[
-                hoveredStep === index ? 'bg-primary scale-110' : 'bg-gray-800',
-                `animate-bounce-delay-${index}`
-              ]"
+                class="bg-[#036E5C] absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-medium transition-all duration-300 ease-in-out"
             >
               {{ String(index + 1).padStart(2, '0') }}
             </div>
@@ -35,13 +28,11 @@
           <p class="text-gray-600 leading-relaxed">
             {{ step.description }}
           </p>
-          <transition name="fade">
-            <div v-if="hoveredStep === index" class="mt-4">
-              <button class="bg-primary text-white px-4 py-2 rounded-full hover:bg-primary-dark transition duration-300">
+            <div class="mt-4">
+              <button class="bg-[#036E5C] text-white px-4 py-2 rounded-full hover:bg-primary-dark transform transition duration-500 hover:scale-105">
                 {{ step.cta }}
               </button>
             </div>
-          </transition>
         </div>
       </template>
     </div>
