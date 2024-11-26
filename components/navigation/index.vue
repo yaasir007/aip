@@ -15,11 +15,15 @@
         <div class="md:flex md:items-center md:gap-12">
           <nav aria-label="Global" class="hidden md:block">
             <ul class="flex items-center gap-6 text-sm">
-              <li>
-                <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> About </a>
-              </li>
+              <NuxtLink to="/properties" class="text-gray-500 transition hover:text-gray-500/75" >
+                Properties
+              </NuxtLink>
 
-              <li>
+              <NuxtLink to="/about" class="text-gray-500 transition hover:text-gray-500/75" >
+                About
+              </NuxtLink>
+
+              <!-- <li>
                 <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Careers </a>
               </li>
 
@@ -33,30 +37,24 @@
 
               <li>
                 <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Projects </a>
-              </li>
+              </li> -->
 
-              <li>
-                <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Blog </a>
-              </li>
+              <NuxtLink to="/faqs" class="text-gray-500 transition hover:text-gray-500/75" >
+                FAQs
+              </NuxtLink>
             </ul>
           </nav>
 
           <div class="flex items-center gap-4">
             <div class="sm:flex sm:gap-4">
-              <a
-                  class="rounded-md bg-[#036E5C] px-5 py-2.5 text-sm font-medium text-white shadow"
-                  href="#"
-              >
+              <NuxtLink to="/auth/signin" class="rounded-md bg-[#036E5C] px-5 py-2.5 text-sm font-medium text-white shadow" >
                 Login
-              </a>
+              </NuxtLink>
 
               <div class="hidden sm:flex">
-                <a
-                    class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-[#036E5C]"
-                    href="#"
-                >
+                <NuxtLink to="/auth/signup" class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-[#036E5C]" >
                   Register
-                </a>
+                </NuxtLink>
               </div>
             </div>
 

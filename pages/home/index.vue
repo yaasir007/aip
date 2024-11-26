@@ -8,7 +8,6 @@
   <HomeStepsToTake />
   <HomeCallToAction />
   <HomeTestimonials />
-  <Footer />
 </template>
 
 <style scoped>

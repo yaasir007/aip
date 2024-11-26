@@ -1,7 +1,7 @@
 <script setup>
+import Home from "./home/index.vue"
 </script>
 
 <template>
-  <Navigation />
   <Home />
 </template>

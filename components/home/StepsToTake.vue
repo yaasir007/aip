@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-7xl mx-auto px-4 py-16" style="height: 80vh;">
+  <div class="max-w-7xl mx-auto px-4 py-16" style="height: fit-content;">
     <div class="text-center mb-12">
       <h2 class="text-4xl font-bold text-gray-900 mb-4">Want to publish your property?</h2>
       <p class="text-lg text-gray-600">
@@ -19,7 +19,7 @@
               <component :is="step.icon" class="w-8 h-8 text-gray-700" />
             </div>
             <div
-                class="bg-[#036E5C] absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-medium transition-all duration-300 ease-in-out"
+                class="bg-[#036E5C] absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-medium"
             >
               {{ String(index + 1).padStart(2, '0') }}
             </div>
