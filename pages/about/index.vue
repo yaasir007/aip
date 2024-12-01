@@ -255,14 +255,6 @@
         </div>
       </section>
     </main>
-
-    <footer class="bg-[#036E5C] text-white py-8">
-      <div class="container mx-auto px-4 text-center">
-        <p>
-          &copy; 2023 Your Property Management Company. All rights reserved.
-        </p>
-      </div>
-    </footer>
   </div>
 </template>
 

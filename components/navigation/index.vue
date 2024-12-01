@@ -6,9 +6,10 @@
     <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <div class="flex-1 md:flex md:items-center md:gap-12">
-          <a class="block" href="/">
+          <a class="flex items-center" href="/">
             <!-- <span style="font-family: 'Avenir Next Condensed'; font-size: 2rem; text-decoration: underline;">AIP</span> -->
-            <img src="/public/logo.svg" alt="" width="50">
+            <img src="/public/Full.png" alt="" width="180">
+            <!-- <span style="font-size: 1.35rem;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;font-weight: 600; color: #036E5C;">aip</span> -->
           </a>
         </div>
 
