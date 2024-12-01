@@ -1,4 +1,7 @@
 <script setup>
+const viewport = useViewport()
+
+
 </script>
 
 <template>
@@ -8,7 +11,8 @@
         <div class="flex-1 md:flex md:items-center md:gap-12">
           <a class="flex items-center" href="/">
             <!-- <span style="font-family: 'Avenir Next Condensed'; font-size: 2rem; text-decoration: underline;">AIP</span> -->
-            <img src="/public/Full.png" alt="" width="180">
+            <img v-if="viewport.isLessThan('tablet')" src="/public/Icon.svg" alt="" width="50">
+            <img v-else src="/public/Full.svg" alt="" width="150">
             <!-- <span style="font-size: 1.35rem;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;font-weight: 600; color: #036E5C;">aip</span> -->
           </a>
         </div>
