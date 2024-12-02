@@ -72,7 +72,7 @@
           </div>
         </div>
       </div>
-      <div v-if="filteredProperties.length === 0" class="text-center mt-8">
+      <div v-if="filteredProperties.length === 0 && !isLoading" class="text-center mt-8">
         <p class="text-xl text-gray-600">
           No properties found matching your search criteria.
         </p>
