@@ -23,7 +23,17 @@
         </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div v-if="isLoading" class="flex justify-center mt-32">
+        <div class="wrapper">
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="shadow"></div>
+          <div class="shadow"></div>
+          <div class="shadow"></div>
+        </div>
+      </div>
+      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div
           v-for="property in filteredProperties"
           :key="property.id"
@@ -36,7 +46,7 @@
           />
           <div class="p-4">
             <h2 class="text-xl font-semibold text-[#036E5C] mb-2">
-              {{ property.title }}
+              {{ property.name }}
             </h2>
             <p class="text-gray-600 mb-2">{{ property.address }}</p>
             <div class="flex items-center mb-2">
@@ -47,12 +57,12 @@
             </div>
             <div class="flex items-center mb-4">
               <SquareIcon class="w-5 h-5 text-[#036E5C] mr-2" />
-              <span>{{ property.sqft }} sqft</span>
+              <span>{{ property.lot_size }} sqft</span>
             </div>
             <div class="flex justify-between items-center">
-              <span class="text-2xl font-bold text-[#036E5C]"
-                >${{ property.price.toLocaleString() }}</span
-              >
+              <span class="text-2xl font-bold text-[#036E5C]">
+                ${{ property.price.toLocaleString() }}
+              </span>
               <button
                 class="bg-[#036E5C] text-white px-4 py-2 rounded-lg hover:bg-[#025a4a] transition-colors duration-200"
               >
@@ -62,7 +72,6 @@
           </div>
         </div>
       </div>
-
       <div v-if="filteredProperties.length === 0" class="text-center mt-8">
         <p class="text-xl text-gray-600">
           No properties found matching your search criteria.
@@ -72,285 +81,39 @@
   </div>
 </template>
 
+
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { BedIcon, BathIcon, SquareIcon, SlidersIcon } from "lucide-vue-next";
+import {fetchProperty} from '../server/supabase';
+
+const isLoading = ref(true)
 
 const searchQuery = ref("");
 
-const properties = ref([
-  {
-    id: 1,
-    title: "Modern Downtown Apartment",
-    address: "123 Main St, Cityville, ST 12345",
-    bedrooms: 2,
-    bathrooms: 2,
-    sqft: 1200,
-    price: 350000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 2,
-    title: "Spacious Suburban Home",
-    address: "456 Oak Ave, Suburbia, ST 67890",
-    bedrooms: 4,
-    bathrooms: 3,
-    sqft: 2500,
-    price: 550000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 3,
-    title: "Cozy Studio Loft",
-    address: "789 Pine St, Downtown, ST 54321",
-    bedrooms: 1,
-    bathrooms: 1,
-    sqft: 800,
-    price: 200000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 4,
-    title: "Luxury Penthouse Suite",
-    address: "101 Skyline Blvd, Metropolis, ST 11111",
-    bedrooms: 3,
-    bathrooms: 3.5,
-    sqft: 3000,
-    price: 1200000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 5,
-    title: "Charming Cottage",
-    address: "202 Meadow Ln, Countryside, ST 22222",
-    bedrooms: 2,
-    bathrooms: 1,
-    sqft: 1000,
-    price: 275000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 6,
-    title: "Modern Townhouse",
-    address: "303 Urban St, Cityscape, ST 33333",
-    bedrooms: 3,
-    bathrooms: 2.5,
-    sqft: 1800,
-    price: 450000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 7,
-    title: "Beachfront Condo",
-    address: "404 Shoreline Dr, Seaside, ST 44444",
-    bedrooms: 2,
-    bathrooms: 2,
-    sqft: 1500,
-    price: 600000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 8,
-    title: "Mountain View Cabin",
-    address: "505 Summit Rd, Highlands, ST 55555",
-    bedrooms: 3,
-    bathrooms: 2,
-    sqft: 1600,
-    price: 400000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 9,
-    title: "Historic Brownstone",
-    address: "606 Heritage Ave, Oldtown, ST 66666",
-    bedrooms: 4,
-    bathrooms: 3,
-    sqft: 2200,
-    price: 750000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 10,
-    title: "Eco-Friendly Green Home",
-    address: "707 Sustainable Way, Greenville, ST 77777",
-    bedrooms: 3,
-    bathrooms: 2,
-    sqft: 1700,
-    price: 500000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 11,
-    title: "Urban Micro-Apartment",
-    address: "808 Compact St, Metrocity, ST 88888",
-    bedrooms: 1,
-    bathrooms: 1,
-    sqft: 500,
-    price: 180000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 12,
-    title: "Lakefront Family Home",
-    address: "909 Lakeview Dr, Watertown, ST 99999",
-    bedrooms: 5,
-    bathrooms: 4,
-    sqft: 3500,
-    price: 850000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 13,
-    title: "Modern Suburban Home",
-    address: "123 Maple St, Greenfield, CA 90210",
-    bedrooms: 4,
-    bathrooms: 3,
-    sqft: 2800,
-    price: 650000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 14,
-    title: "Countryside Retreat",
-    address: "789 Country Ln, Farmville, TX 75001",
-    bedrooms: 6,
-    bathrooms: 5,
-    sqft: 4000,
-    price: 1200000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 15,
-    title: "City Penthouse",
-    address: "456 Highrise Blvd, Metropolis, NY 10001",
-    bedrooms: 3,
-    bathrooms: 3,
-    sqft: 2500,
-    price: 950000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 16,
-    title: "Historic Colonial",
-    address: "111 Old Town Rd, Williamsburg, VA 23185",
-    bedrooms: 5,
-    bathrooms: 4,
-    sqft: 3700,
-    price: 890000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 17,
-    title: "Beachside Villa",
-    address: "222 Ocean Ave, Santa Monica, CA 90401",
-    bedrooms: 4,
-    bathrooms: 4,
-    sqft: 3200,
-    price: 1150000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 18,
-    title: "Rustic Cabin",
-    address: "333 Forest Dr, Pineville, CO 80010",
-    bedrooms: 3,
-    bathrooms: 2,
-    sqft: 1800,
-    price: 450000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 19,
-    title: "Downtown Condo",
-    address: "444 Main St, Downtown, IL 60601",
-    bedrooms: 2,
-    bathrooms: 2,
-    sqft: 1500,
-    price: 700000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 20,
-    title: "Suburban Ranch",
-    address: "555 Apple Ln, Pleasantville, NJ 07001",
-    bedrooms: 4,
-    bathrooms: 3,
-    sqft: 2700,
-    price: 600000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 21,
-    title: "Luxury Apartment",
-    address: "666 Luxury Ave, Richland, CA 94016",
-    bedrooms: 3,
-    bathrooms: 2,
-    sqft: 2100,
-    price: 850000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 22,
-    title: "Urban Loft",
-    address: "777 Skyline Blvd, Urbania, OR 97005",
-    bedrooms: 2,
-    bathrooms: 2,
-    sqft: 1900,
-    price: 750000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 23,
-    title: "Mountain Chalet",
-    address: "888 Summit Rd, Alpine, CO 81211",
-    bedrooms: 5,
-    bathrooms: 4,
-    sqft: 3600,
-    price: 1100000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 24,
-    title: "Lakefront Mansion",
-    address: "999 Lakeside Blvd, Waterside, MI 48201",
-    bedrooms: 6,
-    bathrooms: 5,
-    sqft: 5000,
-    price: 2000000,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661780295073-98db12600af0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-]);
+const properties = ref([])
+
+
+const initFetch = async () => {
+  properties.value = await fetchProperty('All')
+};
+
+onMounted(() => {
+  isLoading.value = true;
+  setTimeout(async () => {
+    await initFetch();
+    isLoading.value = false;
+  }, 700);
+});
+
 
 const filteredProperties = computed(() => {
-  return properties.value.filter(
-    (property) =>
-      property.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      property.address.toLowerCase().includes(searchQuery.value.toLowerCase())
-  );
+  return properties.value
+  // return properties.value.filter(
+  //   (property) =>
+  //     property.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+  //     property.address.toLowerCase().includes(searchQuery.value.toLowerCase())
+  // );
 });
 </script>
 
@@ -363,5 +126,93 @@ const filteredProperties = computed(() => {
     rgba(3, 110, 92, 0.7017463235294117) 65%,
     rgba(3, 110, 92, 0.06869310224089631) 100%
   );
+}
+.wrapper {
+  width: 200px;
+  height: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  border-radius: 50%;
+  background-color: #056E5C;
+  left: 15%;
+  transform-origin: 50%;
+  animation: circle7124 0.8s cubic-bezier(0.5, 0.05, 0.1, 1) infinite alternate;
+}
+
+@keyframes circle7124 {
+  0% {
+    top: 60px;
+    height: 5px;
+    border-radius: 50px 50px 25px 25px;
+    transform: scaleX(1.7);
+  }
+
+  40% {
+    height: 20px;
+    border-radius: 50%;
+    transform: scaleX(1);
+  }
+
+  100% {
+    top: 0%;
+  }
+}
+
+.circle:nth-child(2) {
+  left: 45%;
+  animation-delay: 0.2s;
+}
+
+.circle:nth-child(3) {
+  left: auto;
+  right: 15%;
+  animation-delay: 0.3s;
+}
+
+.shadow {
+  width: 20px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: none;
+  position: absolute;
+  top: 62px;
+  transform-origin: 50%;
+  z-index: -1;
+  left: 15%;
+  filter: blur(1px);
+  animation: shadow046 0.8s cubic-bezier(0.5, 0.05, 0.1, 1) infinite alternate;
+}
+
+@keyframes shadow046 {
+  0% {
+    transform: scaleX(1.5);
+  }
+
+  40% {
+    transform: scaleX(1);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scaleX(0.2);
+    opacity: 0.4;
+  }
+}
+
+.shadow:nth-child(4) {
+  left: 45%;
+  animation-delay: 0.2s;
+}
+
+.shadow:nth-child(5) {
+  left: auto;
+  right: 15%;
+  animation-delay: 0.3s;
 }
 </style>
