@@ -19,4 +19,10 @@ export default defineNuxtConfig({
   },
 
   modules: ["nuxt-viewport"],
+  publicRuntimeConfig: {
+    supabaseKey: process.env.VITE_SUPABASE_KEY
+  },
+  privateRuntimeConfig: {
+    supabaseKey: process.env.VITE_SUPABASE_KEY
+  }
 })

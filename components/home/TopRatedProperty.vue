@@ -23,7 +23,7 @@
       <!-- Property Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div
-          v-for="property in filteredProperties"
+          v-for="property in properties"
           :key="property.id"
           class="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105"
         >
@@ -56,47 +56,32 @@
 <script setup>
 import { ref, computed ,onMounted} from 'vue'
 import { StarIcon, BedIcon, BathIcon, SquareIcon } from 'lucide-vue-next'
-import {supabase} from '../server/supabase';
+import {fetchProperty} from '../server/supabase';
 const propertyTypes = ['All', 'House', 'Apartment', 'Office', 'Land']
 const selectedType = ref('All')
 const properties = ref([])
 
 const initFetch = async () => {
-  try {
-    const { data, error } = await supabase
-      .from('properties')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(6);
-
-    if (error) {
-      throw error;
-    }
-
-    console.log('Fetched properties:', data);
-
-    properties.value = data;
-    console.log("properties.value:", properties.value);
-  } catch (err) {
-    console.error('Error fetching properties:', err);
-  }
+  properties.value = await fetchProperty(selectedType.value)
 };
 
 onMounted(() => {
   initFetch();
 });
 
-watch(selectedType, (newVal) => {
 
-})
-
-
-const filteredProperties = computed(() => {
-  if (selectedType.value === 'All') {
-    return properties.value;
-  }
-  return properties.value.filter(property => property.type === selectedType.value);
+watch(selectedType, async (newVal) => {
+  console.log("new val", newVal);
+  properties.value = await fetchProperty({type: newVal});
 });
+
+
+// const filteredProperties = computed(() => {
+//   if (selectedType.value === 'All') {
+//     return properties.value;
+//   }
+//   return properties.value.filter(property => property.type === selectedType.value);
+// });
 </script>
 
 <style scoped>

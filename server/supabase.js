@@ -1,8 +1,30 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl='https://iefvbpxuyrkjsnowiwvo.supabase.co'
-const supabaseKey='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImllZnZicHh1eXJranNub3dpd3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg1MzcyOTIsImV4cCI6MjA0NDExMzI5Mn0.kfv6tfPlT7tbJvWwfzyIHfvLfNCURX5NQ6EDK2NDBdQ'
+const supabaseUrl = 'https://iefvbpxuyrkjsnowiwvo.supabase.co';
+const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
 
+const supabase = createClient(supabaseUrl, supabaseKey);
 
+export const fetchProperty = async ({ type }) => {
+  try {
+    let query = supabase
+      .from('properties')
+      .select('*')
+      .order('created_at', { ascending: false });
 
-export const supabase = createClient(supabaseUrl, supabaseKey)
+    if (type && type !== 'All') {
+      query = query.eq('property_type', type);
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching properties:', error);
+    return [];
+  }
+};
