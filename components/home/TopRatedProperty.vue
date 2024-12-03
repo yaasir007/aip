@@ -60,6 +60,8 @@
           </div>
         </div>
     </div>
+    <NotFound v-if="!isLoading && properties.length <= 0"/>
+
   </div>
 </template>
 
@@ -67,6 +69,7 @@
 import { ref, computed ,onMounted} from 'vue'
 import { StarIcon, BedIcon, BathIcon, SquareIcon } from 'lucide-vue-next'
 import {fetchProperty} from '../server/supabase';
+import NotFound from "../NotFound/NotFound.vue"
 const propertyTypes = ['All', 'House', 'Apartment', 'Office', 'Land']
 const selectedType = ref('All')
 const properties = ref([])
