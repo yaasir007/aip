@@ -98,6 +98,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import {  FacebookIcon, TwitterIcon } from 'lucide-vue-next'
+import { signInWithEmail } from '~/server/supabase';
 
 const email = ref('')
 const password = ref('')
@@ -127,9 +128,12 @@ const validateForm = () => {
 }
 
 const handleSubmit = () => {
+    // Implement your sign-in logic here
+    console.log('terfffeer')
   if (validateForm()) {
     // Implement your sign-in logic here
     console.log('Sign in with:', { email: email.value, password: password.value, rememberMe: rememberMe.value })
+    signInWithEmail(email.value, password.value)
   }
 }
 
