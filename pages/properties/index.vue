@@ -108,12 +108,14 @@ onMounted(() => {
 
 
 const filteredProperties = computed(() => {
-  return properties.value
-  // return properties.value.filter(
-  //   (property) =>
-  //     property.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-  //     property.address.toLowerCase().includes(searchQuery.value.toLowerCase())
-  // );
+  if (!searchQuery.value) {
+    return properties.value;
+  }
+  return properties.value.filter(
+    (property) =>
+      property.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      property.address.toLowerCase().includes(searchQuery.value.toLowerCase())
+  );
 });
 </script>
 
