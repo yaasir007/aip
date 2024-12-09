@@ -1,19 +1,11 @@
-<script setup>
-const viewport = useViewport()
-
-
-</script>
-
 <template>
   <header class="bg-white">
     <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <div class="flex-1 md:flex md:items-center md:gap-12">
           <a class="flex items-center" href="/">
-            <!-- <span style="font-family: 'Avenir Next Condensed'; font-size: 2rem; text-decoration: underline;">AIP</span> -->
             <img v-if="viewport.isLessThan('tablet')" src="/public/Icon.svg" alt="" width="50">
             <img v-else src="/public/Full.svg" alt="" width="150">
-            <!-- <span style="font-size: 1.35rem;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;font-weight: 600; color: #036E5C;">aip</span> -->
           </a>
         </div>
 
@@ -28,22 +20,6 @@ const viewport = useViewport()
                 About
               </NuxtLink>
 
-              <!-- <li>
-                <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Careers </a>
-              </li>
-
-              <li>
-                <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> History </a>
-              </li>
-
-              <li>
-                <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Services </a>
-              </li>
-
-              <li>
-                <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Projects </a>
-              </li> -->
-
               <NuxtLink to="/faqs" class="text-gray-500 transition hover:text-gray-500/75" >
                 FAQs
               </NuxtLink>
@@ -51,7 +27,7 @@ const viewport = useViewport()
           </nav>
 
           <div class="flex items-center gap-4">
-            <div class="sm:flex sm:gap-4">
+            <div class="sm:flex sm:gap-4" v-if="!loggedIn">
               <NuxtLink to="/auth/signin" class="rounded-md bg-[#036E5C] px-5 py-2.5 text-sm font-medium text-white shadow" >
                 Login
               </NuxtLink>
@@ -61,6 +37,15 @@ const viewport = useViewport()
                   Register
                 </NuxtLink>
               </div>
+            </div>
+            <div class="sm:flex sm:gap-4" v-else>
+              <NuxtLink to="/dashboard/mylistings" class="rounded-md bg-[#036E5C] px-5 py-2.5 text-sm font-medium text-white shadow" >
+                My Listings
+              </NuxtLink>
+              <NuxtLink to="/dashboard/myprofile" class="flex items-center">
+                <!-- Avatar image -->
+                <User class="w-8 h-8 mr-3 flex " />
+              </NuxtLink>
             </div>
 
             <div class="block md:hidden">
@@ -83,3 +68,29 @@ const viewport = useViewport()
     </div>
   </header>
 </template>
+
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { isLoggedIn, subscribeToAuthChanges } from '~/server/supabase'
+import { User } from "lucide-vue-next";
+
+const viewport = useViewport()
+const loggedIn = ref(false)
+
+onMounted(() => {
+  // Subscribe to auth state changes before performing async logic
+  const unsubscribe = subscribeToAuthChanges((isLoggedInState) => {
+    loggedIn.value = isLoggedInState
+  })
+
+  // Cleanup subscription when the component is destroyed
+  onBeforeUnmount(() => {
+    unsubscribe()
+  })
+})
+
+onMounted(async () => {
+  // Now perform async logic after lifecycle hooks are registered
+  loggedIn.value = await isLoggedIn()
+})
+</script>

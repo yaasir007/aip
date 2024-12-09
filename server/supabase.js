@@ -5,29 +5,63 @@ const supabaseKey = import.meta.env.VITE_SUPABASE_KEY
 
 const supabase = createClient(supabaseUrl, supabaseKey)
 
+export const logout = async () => {
+  try {
+    await supabase.auth.signOut();
+    navigateTo('/');
+  } catch (error) {
+    console.error('Error logging out:', error.message);
+  }
+};
+
+export const isLoggedIn = async () => {
+  try {
+    const { data: { user }, error } = await supabase.auth.getSession()
+
+    if (error) {
+      console.error('Error fetching session:', error.message)
+      return false
+    }
+
+    // Check if user is logged in
+    if (user) {
+      return true
+    } else {
+      return false
+    }
+  } catch (error) {
+    console.error('Error checking user status:', error.message)
+    return false
+  }
+}
+
+// Subscribe to auth state changes
+export const subscribeToAuthChanges = (callback) => {
+  return supabase.auth.onAuthStateChange((event, session) => {
+    const isLoggedIn = session?.user ? true : false
+    callback(isLoggedIn)
+  })
+}
 // Sign in with email and password
-export const signInWithEmail = async (email, password) => {
+export const signInWithEmail = async (email, password, router) => {
   try {
     // Sign in user
-    const { user, error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
 
     if (error) {
       console.error('Error signing in:', error.message)
-      return
+      return error.message
     }
 
-    console.log('Signed in user:', user)
-
-    // Check current session
-    const session = supabase.auth.session()
-    console.log('Session:', session)
-
-    return user
+    console.log('Signed in user:', data)
+    router.push('/dashboard/mylistings');
+    // return data.user
   } catch (error) {
     console.error('Error signing in:', error.message)
+    return error.message
   }
 }
 

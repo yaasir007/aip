@@ -99,6 +99,7 @@
 import { ref, reactive } from 'vue'
 import {  FacebookIcon, TwitterIcon } from 'lucide-vue-next'
 import { signInWithEmail } from '~/server/supabase';
+import { useRouter } from 'vue-router';
 
 const email = ref('')
 const password = ref('')
@@ -107,6 +108,7 @@ const errors = reactive({
   email: '',
   password: ''
 })
+const router = useRouter();
 
 const validateForm = () => {
   errors.email = ''
@@ -127,13 +129,13 @@ const validateForm = () => {
   return !errors.email && !errors.password
 }
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
     // Implement your sign-in logic here
     console.log('terfffeer')
   if (validateForm()) {
     // Implement your sign-in logic here
     console.log('Sign in with:', { email: email.value, password: password.value, rememberMe: rememberMe.value })
-    signInWithEmail(email.value, password.value)
+    errors.password = await signInWithEmail(email.value, password.value, router)
   }
 }
 
