@@ -21,7 +21,7 @@
       </div>
 
       <!-- Property Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div v-if="!isLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div
           v-for="property in properties"
           :key="property.id"
@@ -49,7 +49,19 @@
           </div>
         </div>
       </div>
+      <div v-else class="flex justify-center mt-32">
+          <div class="wrapper">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+          </div>
+        </div>
     </div>
+    <NotFound v-if="!isLoading && properties.length <= 0"/>
+
   </div>
 </template>
 
@@ -57,22 +69,33 @@
 import { ref, computed ,onMounted} from 'vue'
 import { StarIcon, BedIcon, BathIcon, SquareIcon } from 'lucide-vue-next'
 import {fetchProperty} from '../server/supabase';
+import NotFound from "../NotFound/NotFound.vue"
 const propertyTypes = ['All', 'House', 'Apartment', 'Office', 'Land']
 const selectedType = ref('All')
 const properties = ref([])
+const isLoading = ref(true)
 
 const initFetch = async () => {
-  properties.value = await fetchProperty(selectedType.value)
+  properties.value = await fetchProperty({type: 'All', limit: 5})
 };
 
 onMounted(() => {
-  initFetch();
+  isLoading.value = true;
+  setTimeout(async () => {
+    await initFetch();
+    isLoading.value = false;
+  }, 700);
 });
 
 
 watch(selectedType, async (newVal) => {
-  console.log("new val", newVal);
-  properties.value = await fetchProperty({type: newVal});
+  console.log('new val', newVal);
+  isLoading.value = true;
+  console.log("li renterer")
+  setTimeout(async () => {
+    properties.value = await fetchProperty({ type: newVal });
+    isLoading.value = false;
+  }, 700);
 });
 
 
@@ -89,5 +112,94 @@ watch(selectedType, async (newVal) => {
 
 h1, h2 {
   font-family: 'Playfair Display', serif;
+}
+
+.wrapper {
+  width: 200px;
+  height: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  border-radius: 50%;
+  background-color: #056E5C;
+  left: 15%;
+  transform-origin: 50%;
+  animation: circle7124 0.8s cubic-bezier(0.5, 0.05, 0.1, 1) infinite alternate;
+}
+
+@keyframes circle7124 {
+  0% {
+    top: 60px;
+    height: 5px;
+    border-radius: 50px 50px 25px 25px;
+    transform: scaleX(1.7);
+  }
+
+  40% {
+    height: 20px;
+    border-radius: 50%;
+    transform: scaleX(1);
+  }
+
+  100% {
+    top: 0%;
+  }
+}
+
+.circle:nth-child(2) {
+  left: 45%;
+  animation-delay: 0.2s;
+}
+
+.circle:nth-child(3) {
+  left: auto;
+  right: 15%;
+  animation-delay: 0.3s;
+}
+
+.shadow {
+  width: 20px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: none;
+  position: absolute;
+  top: 62px;
+  transform-origin: 50%;
+  z-index: -1;
+  left: 15%;
+  filter: blur(1px);
+  animation: shadow046 0.8s cubic-bezier(0.5, 0.05, 0.1, 1) infinite alternate;
+}
+
+@keyframes shadow046 {
+  0% {
+    transform: scaleX(1.5);
+  }
+
+  40% {
+    transform: scaleX(1);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scaleX(0.2);
+    opacity: 0.4;
+  }
+}
+
+.shadow:nth-child(4) {
+  left: 45%;
+  animation-delay: 0.2s;
+}
+
+.shadow:nth-child(5) {
+  left: auto;
+  right: 15%;
+  animation-delay: 0.3s;
 }
 </style>

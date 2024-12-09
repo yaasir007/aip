@@ -124,6 +124,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { FacebookIcon, TwitterIcon } from 'lucide-vue-next'
+import { signUp } from '../server/supabase';
 
 const name = ref('')
 const email = ref('')
@@ -174,6 +175,7 @@ const handleSubmit = () => {
   if (validateForm()) {
     // Implement your sign-up logic here
     console.log('Sign up with:', { name: name.value, email: email.value, password: password.value })
+    signUp(email.value, password.value, name.value)
   }
 }
 
