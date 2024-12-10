@@ -14,6 +14,28 @@ export const logout = async () => {
   }
 };
 
+export const fetchUserProperties = async (userId) => {
+  try {
+    let query = supabase
+      .from('properties')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false });
+
+    const { data, error } = await query;
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching user properties:', error.message);
+    return [];
+  }
+};
+
+
 export const isLoggedIn = async () => {
   try {
     const { data: { user }, error } = await supabase.auth.getSession()

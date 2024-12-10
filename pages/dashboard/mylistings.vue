@@ -3,47 +3,80 @@
     <h1 class="text-3xl font-bold text-[#036E5C] mb-6">My Listings</h1>
 
     <!-- Example Listings Content -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Replace with actual data fetching logic or dynamic listings -->
-      <div v-for="listing in listings" :key="listing.id" class="bg-white p-6 rounded-lg shadow-lg">
-        <img :src="listing.image" alt="Listing Image" class="w-full h-40 object-cover rounded-md mb-4" />
-        <h3 class="font-semibold text-lg text-[#036E5C]">{{ listing.title }}</h3>
-        <p class="text-gray-600 mt-2">{{ listing.description }}</p>
+    <div v-if="!isLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div
+        v-for="property in listings"
+        :key="property.id"
+        class="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105"
+      >
+        <img :src="property.image" :alt="property.title" class="w-full h-64 object-cover" />
+        <div class="p-6">
+          <h2 class="text-2xl font-serif text-gray-900 mb-2">{{ property.name }}</h2>
+          <p class="text-gray-600 mb-4">{{ property.address }}</p>
+          <div class="flex justify-between items-center">
+            <span class="text-[#036E5C] font-bold text-xl">${{ property?.price?.toLocaleString() }}</span>
+            <div class="flex items-center">
+              <StarIcon class="h-5 w-5 text-[#036E5C] mr-1" />
+              <span class="text-gray-700">{{ property.rating }}</span>
+            </div>
+          </div>
+          <div class="mt-4 flex items-center text-gray-600 text-sm">
+            <BedIcon class="h-4 w-4 mr-1" />
+            <span class="mr-4">{{ property.bedrooms }} Beds</span>
+            <BathIcon class="h-4 w-4 mr-1" />
+            <span class="mr-4">{{ property.bathrooms }} Baths</span>
+            <SquareIcon class="h-4 w-4 mr-1" />
+            <span>{{ property.lot_size }} sqft</span>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- Loading Spinner -->
+    <div v-else class="flex justify-center mt-32">
+      <div class="wrapper">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="shadow"></div>
+        <div class="shadow"></div>
+        <div class="shadow"></div>
+      </div>
+    </div>
+
+    <!-- Not Found -->
+    <NotFound v-if="!isLoading && listings.length <= 0" />
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-// definePageMeta({
-//   middleware: 'auth',
-// });
+import { ref, onMounted } from 'vue';
+import { fetchUserProperties, getCurrentUser } from '~/server/supabase';
+import NotFound from '../../components/NotFound/NotFound.vue';
+import { StarIcon, BedIcon, BathIcon, SquareIcon } from 'lucide-vue-next'
 
-const listings = ref([
-  {
-    id: 1,
-    title: 'Cozy 2-Bedroom Apartment',
-    description: 'A beautiful and cozy 2-bedroom apartment in the city center.',
-    image: 'https://via.placeholder.com/200',
-  },
-  {
-    id: 2,
-    title: 'Modern Office Space',
-    description: 'A modern office space with plenty of natural light and a great view.',
-    image: 'https://via.placeholder.com/200',
-  },
-  {
-    id: 3,
-    title: 'Luxury Villa',
-    description: 'A luxurious villa with a private pool and garden.',
-    image: 'https://via.placeholder.com/200',
-  },
-]);
+const listings = ref([]);
+const isLoading = ref(true);  // Add loading state
+const user = ref(null);
+
+onMounted(async () => {
+  try {
+    user.value = await getCurrentUser();
+    console.log('user.value', user.value);
+
+    if (user.value) {
+      listings.value = await fetchUserProperties(user.value.id);  // Assuming `user.id` is correct
+      console.log('listings.value', listings.value);
+    }
+  } catch (error) {
+    console.error('Error fetching properties:', error.message);
+  } finally {
+    isLoading.value = false;  // Set loading to false after the request
+  }
+});
 </script>
 
 <style scoped>
-/* Optional styles for layout */
 .bg-gray-50 {
   background-color: #f9fafb;
 }

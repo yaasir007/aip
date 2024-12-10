@@ -40,7 +40,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-/* Scoped styles for this page */
 .container {
   max-width: 800px;
 }
