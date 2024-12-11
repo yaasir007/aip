@@ -55,19 +55,19 @@
                                   <div class="col-md-6 col-lg-6 ">
                                       <div class="row">
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Property :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">Family Home</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">Family Home</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Price :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">$15,000/mo</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">$15,000/mo</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Property Size :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">1060 Sq Ft</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">1060 Sq Ft</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Year Built :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">2020</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">2020</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Property Type :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">Family House</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">Family House</div>
 
                                       </div>
                                   </div>
@@ -75,18 +75,18 @@
                                   <div class="col-md-6 col-lg-6 ">
                                       <div class="row">
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Property Status :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">For Rent</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">For Rent</div>
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Bedrooms :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">4</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">4</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Bathrooms :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">2</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">2</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Garage :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">1</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">1</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Garage Size :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">150 SqFt</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">150 SqFt</div>
 
                                       </div>
                                   </div>
@@ -121,36 +121,36 @@
                                   <div class="col-md-6">
                                       <div class="row">
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Master Bedroom :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">10 X 10</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">10 X 10</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Bedroom 1 :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">20 X 15</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">20 X 15</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Living Room :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">10 X 15</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">10 X 15</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Dining Room :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">10 X 15</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">10 X 15</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Bedroom 2 :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">15 X 18</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">15 X 18</div>
                                       </div>
                                   </div>
                                   <div class="col-md-6">
                                       <div class="row">
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Bedroom 3 :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">20 X 20</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">20 X 20</div>
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Kitchen :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">15 X 15</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">15 X 15</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Bathroom :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">10 X 08</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">10 X 08</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Gym :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">10 X 10</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">10 X 10</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Swimming Pool :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter font-averta-bold">20 X 50</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">20 X 50</div>
                                       </div>
                                   </div>
                               </div>
@@ -189,11 +189,11 @@
                                       <div class="accordion-header" id="headingOne">
                                           <div class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" role="list">
                                               <ul class="list-inline mb-0">
-                                                  <li class="list-inline-item text-alter font-averta-bold">First Floor</li>
-                                                  <li class="list-inline-item font-averta-regular text-muted">Size: <span class="text-alter font-averta-bold">1200 Sqft</span></li>
-                                                  <li class="list-inline-item font-averta-regular text-muted">Rooms: <span class="text-alter font-averta-bold">600 Sqft</span></li>
-                                                  <li class="list-inline-item font-averta-regular text-muted">Baths: <span class="text-alter font-averta-bold">600 Sqft</span></li>
-                                                  <li class="list-inline-item font-averta-regular text-muted">Price: <span class="text-alter font-averta-bold">$15,000</span></li>
+                                                  <li class="list-inline-item text-alter">First Floor</li>
+                                                  <li class="list-inline-item  text-muted">Size: <span class="text-alter">1200 Sqft</span></li>
+                                                  <li class="list-inline-item  text-muted">Rooms: <span class="text-alter">600 Sqft</span></li>
+                                                  <li class="list-inline-item  text-muted">Baths: <span class="text-alter">600 Sqft</span></li>
+                                                  <li class="list-inline-item  text-muted">Price: <span class="text-alter">$15,000</span></li>
                                               </ul>
                                           </div>
                                       </div>
@@ -207,11 +207,11 @@
                                       <div class="accordion-header" id="headingTwo">
                                           <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" role="list">
                                               <ul class="list-inline mb-0">
-                                                  <li class="list-inline-item text-alter font-averta-bold">Second Floor</li>
-                                                  <li class="list-inline-item font-averta-regular text-muted">Size: <span class="text-alter font-averta-bold">1200 Sqft</span></li>
-                                                  <li class="list-inline-item font-averta-regular text-muted">Rooms: <span class="text-alter font-averta-bold">600 Sqft</span></li>
-                                                  <li class="list-inline-item font-averta-regular text-muted">Baths: <span class="text-alter font-averta-bold">600 Sqft</span></li>
-                                                  <li class="list-inline-item font-averta-regular text-muted">Price: <span class="text-alter font-averta-bold">$15,000</span></li>
+                                                  <li class="list-inline-item text-alter">Second Floor</li>
+                                                  <li class="list-inline-item  text-muted">Size: <span class="text-alter">1200 Sqft</span></li>
+                                                  <li class="list-inline-item  text-muted">Rooms: <span class="text-alter">600 Sqft</span></li>
+                                                  <li class="list-inline-item  text-muted">Baths: <span class="text-alter">600 Sqft</span></li>
+                                                  <li class="list-inline-item  text-muted">Price: <span class="text-alter">$15,000</span></li>
                                               </ul>
                                           </div>
                                       </div>
@@ -229,7 +229,7 @@
                               <div class="card border-0">
                                   <div class="card-body">
                                       <div class="total-review d-flex align-items-center mb-4">
-                                          <h4 class="font-18 font-averta-regular mb-0 me-3">987 Reviews</h4>
+                                          <h4 class="font-18  mb-0 me-3">987 Reviews</h4>
                                           <ul class="total-rating list-inline mb-0 me-3">
                                               <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
                                               <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
