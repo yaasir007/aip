@@ -1,5 +1,6 @@
 <template>
   <section class="property-single-v2-details">
+    <div class="row g-0"><div class="col-md-6"><img class="img-fluid w-100" :src="property?.image" alt="property-image"></div><div class="col-md-6"><div class="row g-0"><div class="col-md-6"><img class="img-fluid w-100" :src="property?.image" alt="property-image"></div><div class="col-md-6"><img class="img-fluid w-100" :src="property?.image" alt="property-image"></div><div class="col-md-6"><img class="img-fluid w-100" :src="property?.image" alt="property-image"></div><div class="col-md-6"><img class="img-fluid w-100" :src="property?.image" alt="property-image"></div></div></div></div>
   <div class="container">
       <div class="property-title-v2 mb-5">
           <div class="card border-0">
@@ -8,13 +9,13 @@
                       <div class="col-lg-7">
                           <div class="d-md-flex align-items-baseline">
                               <div class="property-title">
-                                  <h1 class="font-30">Luxury Family Home</h1>
-                                  <p class="mb-0">1421 San Pedro St, Los Angeles, CA 90015</p>
+                                  <h1 class="font-30">{{property?.name}}</h1>
+                                  <p class="mb-0">{{property?.address}}</p>
                               </div>
 
                               <div class="property-tag">
                                   <ul class="list-inline ms-md-3 mt-md-0 mt-3">
-                                      <li class="bg-orange list-inline-item">For Rent</li>
+                                      <li class="bg-orange list-inline-item">{{ property?.property_status }}</li>
                                       <li class="bg-green list-inline-item">Featured</li>
                                   </ul>
                               </div>
@@ -22,7 +23,8 @@
                       </div>
                       <div class="col-lg-5">
                           <div class="text-lg-end proprty-amnt">
-                              <h2 class="font-30 mb-0">$15,000/<span>mo</span></h2>
+                              <!-- <h2 class="font-30 mb-0">$15,000/<span>mo</span></h2> -->
+                              <h2 class="font-30 mb-0">Rs {{ property?.price }}</h2>
                           </div>
                       </div>
                   </div>
@@ -38,14 +40,12 @@
                               <h4 class="border-bottom pb-3 mb-4 font-20">Description</h4>
 
                               <ul class="list-inline property-desc">
-                                  <li class="list-inline-item">3 Bedrooms</li>
-                                  <li class="list-inline-item">2 Bathrooms</li>
-                                  <li class="list-inline-item">1250 square Ft</li>
+                                  <li class="list-inline-item">{{property?.bedrooms}} Bedrooms</li>
+                                  <li class="list-inline-item">{{property?.bathrooms}} Bathrooms</li>
+                                  <li class="list-inline-item">{{property?.sq_footage}} square Ft</li>
                               </ul>
 
-                              <p>Aliquam vitae sem id sem efficitur interdum. Phasellus ut nulla nisi. Sed varius, lacus ac laoreet pharetra, metus quam rutrum enim, quis rhoncu estibulum sed maximus elit. Quisque semper facilisis sem, sed tempus nisl laoreet sed. Donec ex turpis, pharetra luctus lacus quis, eleifend.</p>
-                              <p>Many desktop publishing fact thagr or reader will distracted packages and webing page of their publishing for lorem ipsum’ will their infancy.</p>
-                              <p>Many desktop publishing fact thagr or reader will distracted packages and webing page of their publishing for lorem ipsum’ will their infancy.</p>
+                              <p>{{ property?.property_description }}</p>
                           </div>
 
                           <div class="property-details mb-5">
@@ -55,19 +55,19 @@
                                   <div class="col-md-6 col-lg-6 ">
                                       <div class="row">
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Property :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">Family Home</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">{{property?.property_type}}</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Price :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">$15,000/mo</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">Rs {{property?.price}}</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Property Size :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">1060 Sq Ft</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">{{property?.sq_footage}} Sq Ft</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Year Built :</div>
                                           <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">2020</div>
 
                                           <div class="col-lg-6 col-md-6 col-6 mb-2">Property Type :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">Family House</div>
+                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">{{property?.property_type}}</div>
 
                                       </div>
                                   </div>
@@ -199,7 +199,7 @@
                                       </div>
                                       <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionFloor">
                                           <div class="accordion-body">
-                                              <img class="img-fluid" src="../../assets/images/floor_plan.png" alt="floor_plan.png">
+                                              <img class="img-fluid" :src="property?.image" alt="floor_plan.png">
                                           </div>
                                       </div>
                                   </div>
@@ -217,7 +217,7 @@
                                       </div>
                                       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionFloor">
                                           <div class="accordion-body">
-                                              <img class="img-fluid" src="../../assets/images/floor_plan.png" alt="floor_plan.png">
+                                              <img class="img-fluid" :src="property?.image" alt="floor_plan.png">
                                           </div>
                                       </div>
                                   </div>
@@ -242,7 +242,7 @@
                                       <div class="post-review-meta border-bottom pb-3">
 
                                           <div class="post-review-details d-flex align-items-center">
-                                              <img src="../../assets/images/agents/team-member1.jpg" class="img-fluid me-4" alt="comment-user">
+                                              <img :src="property?.image" class="img-fluid me-4" alt="comment-user">
                                               <div class="post-review d-md-flex align-items-baseline">
                                                   <div class="post-review-title">
                                                       <h4 class="font-18 mb-0 me-3">Cristina angel</h4>
@@ -262,7 +262,7 @@
                                       </div>
                                       <div class="post-review-meta pt-3">
                                           <div class="post-review-details d-flex align-items-center">
-                                              <img src="../../assets/images/agents/team-member2.png" class="img-fluid me-4" alt="comment-user">
+                                              <img :src="property?.image" class="img-fluid me-4" alt="comment-user">
                                               <div class="post-review d-md-flex align-items-baseline">
                                                   <div class="post-review-title">
                                                       <h4 class="font-18 mb-0 me-3">Johnathan Doe</h4>
@@ -309,7 +309,7 @@
                       </div>
                   </div>
 
-                  <div class="related-property-section mb-5">
+                  <!-- <div class="related-property-section mb-5">
                       <h4 class="border-bottom pb-3 mb-4 font-20">Related Property</h4>
 
                       <div class="related-property">
@@ -419,13 +419,13 @@
                           </div>
                       </div>
 
-                  </div>
+                  </div> -->
               </div>
               <div class="col-lg-4">
                   <div class="sidebar-agent-form mb-4 pb-1">
                       <div class="card border-0">
                           <div class="agent-profile-image bg-white">
-                              <img src="../../assets/images/agents/team-member1.jpg" alt="agent-img">
+                              <img :src="property?.image" alt="agent-img">
                               <h4 class="font-20 mt-3">Johnathan Doe</h4>
                               <p>Property Agent</p>
                           </div>
@@ -645,7 +645,7 @@
                       </div>
                   </div>
 
-                  <div class="sidebar-top-rated-pro-widget mb-4 pb-1">
+                  <!-- <div class="sidebar-top-rated-pro-widget mb-4 pb-1">
                       <div class="card border-0">
                           <div class="card-body p-4">
                               <h4 class="title mb-4">Top Rated Property</h4>
@@ -727,7 +727,7 @@
                               </div>
                           </div>
                       </div>
-                  </div>
+                  </div> -->
 
               </div>
           </div>
@@ -737,9 +737,32 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router'; // Use this to access the route parameters
+import { fetchOneProperty } from '../../server/supabase';
+
+// Define the `property` variable
+const property = ref();
+
+// Use the `useRoute` composable to access the route
+const route = useRoute();
+
 onMounted(() => {
-    import('../../assets/css/style.css')
-    import('../../assets/css/bootstrap.min.css')
-  })
+  asyncData()
+  import('../../assets/css/style.css')
+  import('../../assets/css/bootstrap.min.css')
+})
+
+
+// Fetch property data
+const asyncData = async () => {
+  const id = route.params.id; // Get the `id` from the route
+  console.log('id:', id);
+  property.value = await fetchOneProperty(id); // Fetch data using the `id`
+  console.log(property.value)
+};
 </script>
+
+<style scoped>
+
+</style>

@@ -14,6 +14,26 @@ export const logout = async () => {
   }
 };
 
+export const fetchOneProperty = async (id) => {
+  try {
+    let query = supabase
+      .from('properties')
+      .select('*')
+      .eq('property_id', id)
+
+    const { data, error } = await query;
+
+    if (error) {
+      throw error;
+    }
+
+    return data[0];
+  } catch (error) {
+    console.error('Error fetching user properties:', error.message);
+    return [];
+  }
+};
+
 export const fetchUserProperties = async (userId) => {
   try {
     let query = supabase
