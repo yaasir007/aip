@@ -177,3 +177,21 @@ export const getCurrentUser = async () => {
     return null
   }
 }
+
+export const createProperty = async (propertyData) => {
+  try {
+    const { data, error } = await supabase
+      .from('properties')
+      .insert([propertyData])
+      .select()
+
+    if (error) {
+      throw error;
+    }
+
+    return data[0];
+  } catch (error) {
+    console.error('Error creating property:', error.message);
+    throw error;
+  }
+};
