@@ -1,768 +1,221 @@
 <template>
-  <section class="property-single-v2-details">
-    <div class="row g-0"><div class="col-md-6"><img class="img-fluid w-100" :src="property?.image" alt="property-image"></div><div class="col-md-6"><div class="row g-0"><div class="col-md-6"><img class="img-fluid w-100" :src="property?.image" alt="property-image"></div><div class="col-md-6"><img class="img-fluid w-100" :src="property?.image" alt="property-image"></div><div class="col-md-6"><img class="img-fluid w-100" :src="property?.image" alt="property-image"></div><div class="col-md-6"><img class="img-fluid w-100" :src="property?.image" alt="property-image"></div></div></div></div>
-  <div class="container">
-      <div class="property-title-v2 mb-5">
-          <div class="card border-0">
-              <div class="card-body p-4">
-                  <div class="row align-items-baseline">
-                      <div class="col-lg-7">
-                          <div class="d-md-flex align-items-baseline">
-                              <div class="property-title">
-                                  <h1 class="font-30">{{property?.name}}</h1>
-                                  <p class="mb-0">{{property?.address}}</p>
-                              </div>
+	<div v-if="property" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+		<!-- Image Carousel -->
+		<div class="mb-8">
+			<swiper
+				:modules="[Navigation, Pagination]"
+				:slides-per-view="1"
+				:space-between="30"
+				navigation
+				:pagination="{ clickable: true }"
+				:loop="true"
+				class="h-[400px] md:h-[500px] lg:h-[600px]"
+			>
+				<swiper-slide v-for="(image, index) in carouselImages" :key="index">
+					<img :src="image" :alt="`${property.name} - View ${index + 1}`" class="w-full h-full object-cover rounded-lg" />
+				</swiper-slide>
+			</swiper>
+		</div>
 
-                              <div class="property-tag">
-                                  <ul class="list-inline ms-md-3 mt-md-0 mt-3">
-                                      <li class="bg-orange list-inline-item">{{ property?.property_status }}</li>
-                                      <li class="bg-green list-inline-item">Featured</li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="col-lg-5">
-                          <div class="text-lg-end proprty-amnt">
-                              <!-- <h2 class="font-30 mb-0">$15,000/<span>mo</span></h2> -->
-                              <h2 class="font-30 mb-0">Rs {{ property?.price }}</h2>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="property-details-v2">
-          <div class="row">
-              <div class="col-lg-8">
-                  <div class="card border-0 mb-5">
-                      <div class="card-body p-4">
-                          <div class="property-description mb-5">
-                              <h4 class="border-bottom pb-3 mb-4 font-20">Description</h4>
+		<!-- Property Details -->
+		<div class="flex flex-col lg:flex-row gap-8">
+			<div class="lg:w-2/3 shadow-[0px_-2px_6px_rgba(0,0,0,0.1),0px_2px_6px_rgba(0,0,0,0.08)] rounded-lg p-6 bg-white">
+				<div class="flex items-center gap-4 mb-4">
+					<h1 class="text-3xl font-bold">{{ property.name }}</h1>
+					<span class="px-3 py-1 bg-green-500 text-white text-sm rounded-full">{{ property.property_status }}</span>
+				</div>
+				<p class="text-gray-600 mb-6">{{ property.address }}</p>
 
-                              <ul class="list-inline property-desc">
-                                  <li class="list-inline-item">{{property?.bedrooms}} Bedrooms</li>
-                                  <li class="list-inline-item">{{property?.bathrooms}} Bathrooms</li>
-                                  <li class="list-inline-item">{{property?.sq_footage}} square Ft</li>
-                              </ul>
+				<!-- Property Features -->
+				<div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+					<div class="flex items-center gap-2">
+						<i class="pi pi-home text-gray-400"></i>
+						<div>
+							<p class="text-sm text-gray-500">Living Area</p>
+							<p class="font-semibold">{{ property.sq_footage }} sqft</p>
+						</div>
+					</div>
+					<div class="flex items-center gap-2">
+						<i class="pi pi-building text-gray-400"></i>
+						<div>
+							<p class="text-sm text-gray-500">Bedrooms</p>
+							<p class="font-semibold">{{ property.bedrooms }}</p>
+						</div>
+					</div>
+					<div class="flex items-center gap-2">
+						<i class="pi pi-shield text-gray-400"></i>
+						<div>
+							<p class="text-sm text-gray-500">Bathrooms</p>
+							<p class="font-semibold">{{ property.bathrooms }}</p>
+						</div>
+					</div>
+					<div class="flex items-center gap-2">
+						<i class="pi pi-calendar text-gray-400"></i>
+						<div>
+							<p class="text-sm text-gray-500">Year Built</p>
+							<p class="font-semibold">{{ new Date(property.year_built).getFullYear() }}</p>
+						</div>
+					</div>
+				</div>
 
-                              <p>{{ property?.property_description }}</p>
-                          </div>
+				<!-- Description -->
+				<div class="mb-8">
+					<h2 class="text-xl font-semibold mb-4">Description</h2>
+					<p class="text-gray-600 leading-relaxed">{{ property.property_description }}</p>
+				</div>
 
-                          <div class="property-details mb-5">
-                              <h4 class="border-bottom pb-3 mb-4 font-20">Property Details</h4>
+				<!-- Additional Details -->
+				<div class="mb-8">
+					<h2 class="text-xl font-semibold mb-4">Additional Details</h2>
+					<div class="grid grid-cols-2 gap-4">
+						<div>
+							<p class="text-sm text-gray-500">Property ID</p>
+							<p class="font-semibold">{{ property.property_id }}</p>
+						</div>
+						<div>
+							<p class="text-sm text-gray-500">Property Type</p>
+							<p class="font-semibold">{{ property.property_type }}</p>
+						</div>
+						<div>
+							<p class="text-sm text-gray-500">Lot Size</p>
+							<p class="font-semibold">{{ property.lot_size }} acres</p>
+						</div>
+						<div>
+							<p class="text-sm text-gray-500">Agency</p>
+							<p class="font-semibold">{{ property.agency }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
 
-                              <div class="row">
-                                  <div class="col-md-6 col-lg-6 ">
-                                      <div class="row">
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Property :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">{{property?.property_type}}</div>
-
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Price :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">Rs {{property?.price}}</div>
-
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Property Size :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">{{property?.sq_footage}} Sq Ft</div>
-
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Year Built :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">2020</div>
-
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Property Type :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">{{property?.property_type}}</div>
-
-                                      </div>
-                                  </div>
-
-                                  <div class="col-md-6 col-lg-6 ">
-                                      <div class="row">
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Property Status :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">For Rent</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Bedrooms :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">4</div>
-
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Bathrooms :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">2</div>
-
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Garage :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">1</div>
-
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Garage Size :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">150 SqFt</div>
-
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <div class="property-amenities mb-5">
-                              <h4 class="border-bottom pb-3 mb-4 font-20">Property Amenities</h4>
-                              <ul class="list-inline">
-                                  <li>Air Conditioning</li>
-                                  <li>Barbeque</li>
-                                  <li>Dryer</li>
-                                  <li>Gym</li>
-                                  <li>Laundry</li>
-                                  <li>Lawn</li>
-                                  <li>Microwave</li>
-                                  <li>Outdoor Shower</li>
-                                  <li>Refrigerator</li>
-                                  <li>Sauna</li>
-                                  <li>Swimming Pool</li>
-                                  <li>TV Cable</li>
-                                  <li>Washer</li>
-                                  <li>WiFi</li>
-                                  <li>Window Coverings</li>
-                              </ul>
-                          </div>
-
-                          <div class="property-dimension mb-5">
-                              <h4 class="border-bottom pb-3 mb-4 font-20">Room Dimensions</h4>
-
-                              <div class="row">
-                                  <div class="col-md-6">
-                                      <div class="row">
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Master Bedroom :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">10 X 10</div>
-
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Bedroom 1 :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">20 X 15</div>
-
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Living Room :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">10 X 15</div>
-
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Dining Room :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">10 X 15</div>
-
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Bedroom 2 :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">15 X 18</div>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                      <div class="row">
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Bedroom 3 :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">20 X 20</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Kitchen :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">15 X 15</div>
-
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Bathroom :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">10 X 08</div>
-
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Gym :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">10 X 10</div>
-
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2">Swimming Pool :</div>
-                                          <div class="col-lg-6 col-md-6 col-6 mb-2 text-alter">20 X 50</div>
-                                      </div>
-                                  </div>
-                              </div>
-
-                          </div>
-
-                          <div class="property-documents mb-5">
-                              <h4 class="border-bottom pb-3 mb-4 font-20">Property Attachments</h4>
-
-                              <div class="property-document-meta d-md-flex">
-                                  <div class="document-icon-box d-flex align-items-center">
-                                      <div class="document-icon">
-                                          <i class="far fa-file-word font-30 text-orange"></i>
-                                      </div>
-                                      <div class="document-details ms-3">
-                                          <h5 class="font-16"><i class="fas fa-download me-2 text-orange"></i> Demo Word Document</h5>
-                                      </div>
-                                  </div>
-                                  <div class="document-icon-box d-flex align-items-center ms-md-5 mt-3 mt-md-0">
-                                      <div class="document-icon">
-                                          <i class="far fa-file-pdf font-30 text-orange"></i>
-                                      </div>
-                                      <div class="document-details ms-3">
-                                          <h5 class="font-16"><i class="fas fa-download me-2 text-orange"></i> Demo pdf Document</h5>
-                                      </div>
-                                  </div>
-                              </div>
-
-                          </div>
-
-                          <div class="property-floors mb-5">
-                              <h4 class="border-bottom pb-3 mb-4 font-20">Floor plans</h4>
-
-                              <div class="accordion" id="accordionFloor">
-                                  <div class="accordion-item">
-                                      <div class="accordion-header" id="headingOne">
-                                          <div class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" role="list">
-                                              <ul class="list-inline mb-0">
-                                                  <li class="list-inline-item text-alter">First Floor</li>
-                                                  <li class="list-inline-item  text-muted">Size: <span class="text-alter">1200 Sqft</span></li>
-                                                  <li class="list-inline-item  text-muted">Rooms: <span class="text-alter">600 Sqft</span></li>
-                                                  <li class="list-inline-item  text-muted">Baths: <span class="text-alter">600 Sqft</span></li>
-                                                  <li class="list-inline-item  text-muted">Price: <span class="text-alter">$15,000</span></li>
-                                              </ul>
-                                          </div>
-                                      </div>
-                                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionFloor">
-                                          <div class="accordion-body">
-                                              <img class="img-fluid" :src="property?.image" alt="floor_plan.png">
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="accordion-item">
-                                      <div class="accordion-header" id="headingTwo">
-                                          <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" role="list">
-                                              <ul class="list-inline mb-0">
-                                                  <li class="list-inline-item text-alter">Second Floor</li>
-                                                  <li class="list-inline-item  text-muted">Size: <span class="text-alter">1200 Sqft</span></li>
-                                                  <li class="list-inline-item  text-muted">Rooms: <span class="text-alter">600 Sqft</span></li>
-                                                  <li class="list-inline-item  text-muted">Baths: <span class="text-alter">600 Sqft</span></li>
-                                                  <li class="list-inline-item  text-muted">Price: <span class="text-alter">$15,000</span></li>
-                                              </ul>
-                                          </div>
-                                      </div>
-                                      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionFloor">
-                                          <div class="accordion-body">
-                                              <img class="img-fluid" :src="property?.image" alt="floor_plan.png">
-                                          </div>
-                                      </div>
-                                  </div>
-
-                              </div>
-                          </div>
-
-                          <div class="single-post-reviews mb-5">
-                              <div class="card border-0">
-                                  <div class="card-body">
-                                      <div class="total-review d-flex align-items-center mb-4">
-                                          <h4 class="font-18  mb-0 me-3">987 Reviews</h4>
-                                          <ul class="total-rating list-inline mb-0 me-3">
-                                              <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                              <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                              <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                              <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                              <li class="list-inline-item me-0"><a href="#"><i class="far fa-star text-warning"></i></a></li>
-                                          </ul>
-                                          <p class="mb-0 font-14 d-none d-md-block">( 4.5 out of 5 )</p>
-                                      </div>
-                                      <div class="post-review-meta border-bottom pb-3">
-
-                                          <div class="post-review-details d-flex align-items-center">
-                                              <img :src="property?.image" class="img-fluid me-4" alt="comment-user">
-                                              <div class="post-review d-md-flex align-items-baseline">
-                                                  <div class="post-review-title">
-                                                      <h4 class="font-18 mb-0 me-3">Cristina angel</h4>
-                                                      <a href="#" class="text-decoration-none font-14"><i class="far fa-calendar-alt text-orange me-2"></i> Aug 28, 2021</a>
-                                                  </div>
-                                                  <ul class="review-rating list-inline mb-0">
-                                                      <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                                      <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                                      <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                                      <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                                      <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                                  </ul>
-                                              </div>
-
-                                          </div>
-                                          <p class="mb-0 mt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non urna at ipsum suscipit iaculis a at dui.</p>
-                                      </div>
-                                      <div class="post-review-meta pt-3">
-                                          <div class="post-review-details d-flex align-items-center">
-                                              <img :src="property?.image" class="img-fluid me-4" alt="comment-user">
-                                              <div class="post-review d-md-flex align-items-baseline">
-                                                  <div class="post-review-title">
-                                                      <h4 class="font-18 mb-0 me-3">Johnathan Doe</h4>
-                                                      <a href="#" class="text-decoration-none font-14"><i class="far fa-calendar-alt text-orange me-2"></i> Aug 28, 2021</a>
-                                                  </div>
-                                                  <ul class="review-rating list-inline mb-0">
-                                                      <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                                      <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                                      <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                                      <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                                      <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                                  </ul>
-                                              </div>
-
-                                          </div>
-                                          <p class="mb-0 mt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non urna at ipsum suscipit iaculis a at dui.</p>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <div class="single-post-add-reviews">
-                              <h4 class="font-20">Write a Review</h4>
-                              <div class="add-review d-flex align-items-center my-3 pt-3 pb2">
-                                  <ul class="total-rating list-inline mb-0 me-3">
-                                      <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                      <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                      <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                      <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                      <li class="list-inline-item me-0"><a href="#"><i class="far fa-star text-warning"></i></a></li>
-                                  </ul>
-                                  <p class="mb-0 font-14">Your Rating & Review</p>
-                              </div>
-                              <form class="review_form">
-                                  <div class="form-group mb-3">
-                                      <input type="text" class="form-control" id="review-title" placeholder="Review Title">
-                                  </div>
-                                  <div class="form-group mb-3">
-                                      <textarea class="form-control" id="review-msg" rows="6" placeholder="Your Review"></textarea>
-                                  </div>
-                                  <button type="submit" class="btn add-review-btn">Submit Review</button>
-                              </form>
-                          </div>
-                      </div>
-                  </div>
-
-                  <!-- <div class="related-property-section mb-5">
-                      <h4 class="border-bottom pb-3 mb-4 font-20">Related Property</h4>
-
-                      <div class="related-property">
-                          <div class="row">
-                              <div class="col-md-6">
-                                  <div class="card related-property-card mb-4">
-                                      <div class="related-property-img position-relative">
-                                          <img src="../../assets/images/property-img/fe-property-img-9.jpg" alt="featured-property" class="img-fluid w-100 related-pro-img" />
-                                          <div class="property-details mb-2">
-                                              <h4 class="text-white mb-0">$13,000/<span>mo</span></h4>
-                                              <div class="property-view ms-auto">
-                                                  <a href="#"><i class="fas fa-exchange-alt"></i></a>
-                                                  <a href="#"><i class="far fa-heart"></i></a>
-                                              </div>
-                                          </div>
-                                          <div class="property-tag">
-                                              <ul class="list-unstyled mb-0">
-                                                  <li class="bg-blue">For Rent</li>
-                                              </ul>
-                                          </div>
-                                          <span class="featured-property me-2 text-white bg-green"><i class="fas fa-star font-12"></i></span>
-                                          <span class="hot-property me-2 text-white bg-orange"><i class="fas fa-fire font-12"></i></span>
-                                      </div>
-                                      <div class="card-body">
-                                          <p class="text-orange mb-0">Apartment</p>
-                                          <h4 class="font-20 product-title"><a href="page-property-single-v1.html" class="text-decoration-none">Modern Apartments</a></h4>
-                                          <p><i class="fas fa-map-marker-alt"></i> 1421 San Pedro St, Los Angeles, CA 90015</p>
-                                          <ul class="list-unstyled d-flex justify-content-between mb-0">
-                                              <li><p class="mb-0">3 <i class="fas fa-bed"></i></p>
-                                              Bedrooms</li>
-                                              <li><p class="mb-0">2 <i class="fas fa-sink"></i></p>
-                                              Bathrooms</li>
-                                              <li><p class="mb-0">1250 <i class="fas fa-vector-square"></i>   </p>
-                                                  square Ft
-                                              </li>
-                                          </ul>
-                                      </div>
-                                      <div class="property-footer border-top">
-                                          <div class="card-body">
-                                              <div class="property-footer-meta d-flex align-items-center">
-                                                  <a href="#"><img src="../../assets/images/user-icon.png" alt="user-image" class="img-fluid"></a>
-                                                  <div class="ms-3">
-                                                      <h6 class="mb-0"><a href="#" class="text-decoration-none">Johnathan Doe</a></h6>
-                                                      <p class="font-14 mb-0">Estate Agents</p>
-                                                  </div>
-                                                  <div class="property-year ms-auto">
-                                                      <p class="mb-0">1 day Ago</p>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-
-                              </div>
-                              <div class="col-md-6">
-                                  <div class="card related-property-card mb-4">
-                                      <div class="related-property-img position-relative">
-                                          <img src="../../assets/images/property-img/fe-property-img-2.jpg" alt="featured-property" class="img-fluid w-100 related-pro-img" />
-                                          <div class="property-details mb-2">
-                                              <h4 class="text-white mb-0">$13,000/<span>mo</span></h4>
-                                              <div class="property-view ms-auto">
-                                                  <a href="#"><i class="fas fa-exchange-alt"></i></a>
-                                                  <a href="#"><i class="far fa-heart"></i></a>
-                                              </div>
-                                          </div>
-                                          <div class="property-tag">
-                                              <ul class="list-unstyled mb-0">
-                                                  <li class="bg-orange">For Sale</li>
-                                              </ul>
-                                          </div>
-
-                                          <span class="hot-property me-2 text-white bg-green"><i class="fas fa-star font-12"></i></span>
-                                      </div>
-                                      <div class="card-body">
-                                          <p class="text-orange mb-0">House</p>
-                                          <h4 class="font-20 product-title"><a href="page-property-single-v2.html" class="text-decoration-none">Luxury Family Home</a></h4>
-                                          <p><i class="fas fa-map-marker-alt"></i> 1421 San Pedro St, Los Angeles, CA 90015</p>
-                                          <ul class="list-unstyled d-flex justify-content-between mb-0">
-                                              <li><p class="mb-0">3 <i class="fas fa-bed"></i></p>
-                                              Bedrooms
-                                              </li>
-                                              <li><p class="mb-0">2 <i class="fas fa-sink"></i></p>
-                                              Bathrooms</li>
-                                              <li><p class="mb-0">1250 <i class="fas fa-vector-square"></i>   </p>
-                                                  square Ft
-                                              </li>
-                                          </ul>
-                                      </div>
-                                      <div class="property-footer border-top">
-                                          <div class="card-body">
-                                              <div class="property-footer-meta d-flex align-items-center">
-                                                  <a href="#"><img src="../../assets/images/user-icon.png" alt="user-image" class="img-fluid"></a>
-                                                  <div class="ms-3">
-                                                      <h6 class="mb-0"><a href="#" class="text-decoration-none">Johnathan Doe</a></h6>
-                                                      <p class="font-14 mb-0">Estate Agents</p>
-                                                  </div>
-                                                  <div class="property-year ms-auto">
-                                                      <p class="mb-0">1 day Ago</p>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-
-                              </div>
-
-                          </div>
-                      </div>
-
-                  </div> -->
-              </div>
-              <div class="col-lg-4">
-                  <div class="sidebar-agent-form mb-4 pb-1">
-                      <div class="card border-0">
-                          <div class="agent-profile-image bg-white">
-                              <img :src="property?.image" alt="agent-img">
-                              <h4 class="font-20 mt-3">Johnathan Doe</h4>
-                              <p>Property Agent</p>
-                          </div>
-                          <div class="card-body p-4 border-bottom pb-2">
-                              <div class="agent-contact-detail-sidebar">
-                                  <p><i class="fas fa-phone-square-alt me-3 text-orange"></i>9876543210</p>
-                                  <p><i class="fas fa-envelope-square me-3 text-orange"></i><a href="#" class="text-decoration-none">johnathandoe@gmail.com</a></p>
-                              </div>
-                          </div>
-                          <div class="card-body p-4">
-                              <div class="agent-contact-form-sidebar">
-                                  <form id="agent-form" name="agent-form" method="POST">
-                                      <input type="text" id="fname" name="full_name" class="form-control mb-3 font-14" placeholder="Full Name" required="">
-                                      <input type="text" id="pnumber" name="p_number" class="form-control mb-3 font-14" placeholder="Phone Number" required="">
-                                      <input type="email" id="emailid" name="email_address" class="form-control mb-3 font-14" placeholder="Email Address" required="">
-                                      <textarea rows="5" name="message" class="form-control mb-3 font-14" placeholder="I'm interest in..." required=""></textarea>
-
-                                      <input type="submit" name="request" class="btn w-100 agent-contact-btn" value="Submit Request">
-                                  </form>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="sidebar-search-property mb-4 pb-1">
-                      <div class="card border-0">
-                          <div class="card-body p-4">
-                              <form class="search-property-form">
-                                  <div class="row">
-                                      <div class="col-lg-12 col-md-6">
-                                          <input type="text" class="form-control font-14 mb-3" name="se-keyword" placeholder="Enter Keywords..." value="">
-                                      </div>
-                                      <div class="col-lg-12 col-md-6">
-                                          <select class="form-select font-14 form-select-md mb-3" aria-label=".form-select-md example" name="se-property-type">
-                                              <option selected="">Property Type</option>
-                                              <option value="Residential">Residential</option>
-                                              <option value="Commercial">Commercial</option>
-                                          </select>
-                                      </div>
-                                      <div class="col-lg-12 col-md-6">
-                                          <select class="form-select font-14 form-select-md mb-3" aria-label=".form-select-md example" name="se-property-location">
-                                              <option selected="">Location</option>
-                                              <option value="1">One</option>
-                                              <option value="2">Two</option>
-                                              <option value="3">Three</option>
-                                          </select>
-                                      </div>
-                                      <div class="col-lg-12 col-md-6">
-                                          <select class="form-select form-select-md mb-3 font-14" aria-label=".form-select-md example" name="se-property-status">
-                                              <option selected="">Status</option>
-                                              <option value="Any">Any</option>
-                                              <option value="For Rent">For Rent</option>
-                                              <option value="For Sale">For Sale</option>
-                                          </select>
-                                      </div>
-                                      <div class="col-lg-12 col-md-6">
-                                          <select class="form-select form-select-md mb-3 font-14" aria-label=".form-select-md example" name="se-property-rooms">
-                                              <option selected="">Max Rooms</option>
-                                              <option value="1">1 Rooms</option>
-                                              <option value="2">2 Rooms</option>
-                                              <option value="3">3 Rooms</option>
-                                              <option value="4">4 Rooms</option>
-                                              <option value="5">5 Rooms</option>
-                                          </select>
-                                      </div>
-                                      <div class="col-lg-12 col-md-6">
-                                          <select class="form-select form-select-md mb-3 font-14" aria-label=".form-select-md example" name="se-property-bed">
-                                              <option selected="">Bedrooms</option>
-                                              <option value="1">1 Bedrooms</option>
-                                              <option value="2">2 Bedrooms</option>
-                                              <option value="3">3 Bedrooms</option>
-                                              <option value="4">4 Bedrooms</option>
-                                              <option value="5">5 Bedrooms</option>
-                                          </select>
-                                      </div>
-                                      <div class="col-lg-12 col-md-6">
-                                          <select class="form-select form-select-md mb-3 font-14" aria-label=".form-select-md example" name="se-property-bath">
-                                              <option selected="">Bathrooms</option>
-                                              <option value="1">1 Bathrooms</option>
-                                              <option value="2">2 Bathrooms</option>
-                                              <option value="3">3 Bathrooms</option>
-                                              <option value="4">4 Bathrooms</option>
-                                              <option value="5">5 Bathrooms</option>
-                                          </select>
-                                      </div>
-                                      <div class="col-lg-12 col-md-6">
-                                          <select class="form-select form-select-md mb-3 font-14" aria-label=".form-select-md example" name="se-property-year">
-                                              <option selected="">Year Built</option>
-                                              <option value="2017">2017</option>
-                                              <option value="2018">2018</option>
-                                              <option value="2019">2019</option>
-                                              <option value="2020">2020</option>
-                                              <option value="2021">2021</option>
-                                          </select>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <input type="text" name="se-min-price" class="form-control font-14 mb-3" placeholder="Min Price">
-                                      </div>
-                                      <div class="col-md-6">
-                                          <input type="text" name="se-max-price" class="form-control font-14 mb-3" placeholder="Max Price">
-                                      </div>
-                                      <div class="col-md-6">
-                                          <input type="text" name="se-min-area" class="form-control font-14 mb-3" placeholder="Min Area">
-                                      </div>
-                                      <div class="col-md-6">
-                                          <input type="text" name="se-max-area" class="form-control font-14 mb-3" placeholder="Max Area">
-                                      </div>
-                                      <div class="col-lg-12 col-md-6">
-                                          <a class="text-decoration-none font-14 text-orange" data-bs-toggle="collapse" href="#more-option" role="button" aria-expanded="false" aria-controls="more-option"><i class="fas fa-ellipsis-v me-2"></i>More Options</a>
-                                      </div>
-                                  </div>
-                                  <div class="collapse more-option" id="more-option">
-                                      <div class="row mt-2">
-                                          <div class="col-md-6 pb-2">
-                                              <div class="form-check d-flex align-items-center">
-                                                  <input id="Dining-Room" class="form-check-input font-14" type="checkbox" name="amenities[]" value="Dining Room">
-                                                  <label for="Dining-Room" class="ms-2 form-check-label font-14">Dining Room</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6 pb-2">
-                                              <div class="form-check d-flex align-items-center">
-                                                  <input id="Family-Room" class="form-check-input font-14" type="checkbox" name="amenities[]" value="Family Room">
-                                                  <label for="Family-Room" class="ms-2 form-check-label font-14">Family Room</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6 pb-2">
-                                              <div class="form-check d-flex align-items-center">
-                                                  <input id="Air-Condition" class="form-check-input font-14" type="checkbox" name="amenities[]" value="Air Condition">
-                                                  <label for="Air-Condition" class="ms-2 form-check-label font-14">Air Condition</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6 pb-2">
-                                              <div class="form-check d-flex align-items-center">
-                                                  <input id="Cooling-System" class="form-check-input font-14" type="checkbox" name="amenities[]" value="Cooling System">
-                                                  <label for="Cooling-System" class="ms-2 form-check-label font-14">Cooling System</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6 pb-2">
-                                              <div class="form-check d-flex align-items-center">
-                                                  <input id="Heating-System" class="form-check-input font-14" type="checkbox" name="amenities[]" value="Heating System">
-                                                  <label for="Heating-System" class="ms-2 form-check-label font-14">Heating System</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6 pb-2">
-                                              <div class="form-check d-flex align-items-center">
-                                                  <input id="Central-Cooling" class="form-check-input font-14" type="checkbox" name="amenities[]" value="Central Cooling">
-                                                  <label for="Central-Cooling" class="ms-2 form-check-label font-14">Central Cooling</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6 pb-2">
-                                              <div class="form-check d-flex align-items-center">
-                                                  <input id="Central-Heating" class="form-check-input font-14" type="checkbox" name="amenities[]" value="Central Heating">
-                                                  <label for="Central-Heating" class="ms-2 form-check-label font-14">Central Heating</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6 pb-2">
-                                              <div class="form-check d-flex align-items-center">
-                                                  <input id="Dishwasher" class="form-check-input font-14" type="checkbox" name="amenities[]" value="Dishwasher">
-                                                  <label for="Dishwasher" class="ms-2 form-check-label font-14">Dishwasher</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6 pb-2">
-                                              <div class="form-check d-flex align-items-center">
-                                                  <input id="Fireplace" class="form-check-input font-14" type="checkbox" name="amenities[]" value="Fireplace">
-                                                  <label for="Fireplace" class="ms-2 form-check-label font-14">Fireplace</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6 pb-2">
-                                              <div class="form-check d-flex align-items-center">
-                                                  <input id="Fire-Alarm" class="form-check-input font-14" type="checkbox" name="amenities[]" value="Fire Alarm">
-                                                  <label for="Fire-Alarm" class="ms-2 form-check-label font-14">Fire Alarm</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6 pb-2">
-                                              <div class="form-check d-flex align-items-center">
-                                                  <input id="Emergency-Exit" class="form-check-input font-14" type="checkbox" name="amenities[]" value="Emergency Exit">
-                                                  <label for="Emergency-Exit" class="ms-2 form-check-label font-14">Emergency Exit</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6 pb-2">
-                                              <div class="form-check d-flex align-items-center">
-                                                  <input id="Elevator" class="form-check-input font-14" type="checkbox" name="amenities[]" value="Elevator">
-                                                  <label for="Elevator" class="ms-2 form-check-label font-14">Elevator</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6 pb-2">
-                                              <div class="form-check d-flex align-items-center">
-                                                  <input id="Garden" class="form-check-input font-14" type="checkbox" name="amenities[]" value="Garden">
-                                                  <label for="Garden" class="ms-2 form-check-label font-14">Garden</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6 pb-2">
-                                              <div class="form-check d-flex align-items-center">
-                                                  <input id="Parking" class="form-check-input font-14" type="checkbox" name="amenities[]" value="Parking">
-                                                  <label for="Parking" class="ms-2 form-check-label font-14">Parking</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6 pb-2">
-                                              <div class="form-check d-flex align-items-center">
-                                                  <input id="Balcony" class="form-check-input font-14" type="checkbox" name="amenities[]" value="Balcony">
-                                                  <label for="Balcony" class="ms-2 form-check-label font-14">Balcony</label>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6 pb-2">
-                                              <div class="form-check d-flex align-items-center">
-                                                  <input id="Home-Theater" class="form-check-input font-14" type="checkbox" name="amenities[]" value="Home Theater">
-                                                  <label for="Home-Theater" class="ms-2 form-check-label font-14">Home Theater</label>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-12">
-                                      <a href="javascript:void(0)" class="btn property-search w-100 mt-3">Search</a>
-                                  </div>
-                              </form>
-                          </div>
-                      </div>
-                  </div>
-
-                  <!-- <div class="sidebar-top-rated-pro-widget mb-4 pb-1">
-                      <div class="card border-0">
-                          <div class="card-body p-4">
-                              <h4 class="title mb-4">Top Rated Property</h4>
-                              <div class="row mb-3">
-                                  <div class="col-md-4">
-                                      <a href="#"><img src="../../assets/images/blog/7.jpg" class="img-fluid h-100 rounded top-pro-image" alt="blog-image"></a>
-                                  </div>
-                                  <div class="col-md-8">
-                                      <h6 class="mb-0 mt-2 mt-md-0"><a href="#" class="text-decoration-none"> Lorem ipsum dolor sit cing</a></h6>
-                                      <ul class="property-rating list-inline mb-0">
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                      </ul>
-                                      <div class="product-price">
-                                          <span class="text-orange font-14">$30,000.00</span>
-                                          <del>$35,000.00</del>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="row mb-3">
-                                  <div class="col-md-4">
-                                      <a href="#"><img src="../../assets/images/blog/7.jpg" class="img-fluid h-100 rounded top-pro-image" alt="blog-image"></a>
-                                  </div>
-                                  <div class="col-md-8">
-                                      <h6 class="mb-0 mt-2 mt-md-0"><a href="#" class="text-decoration-none"> Lorem ipsum dolor sit cing</a></h6>
-                                      <ul class="property-rating list-inline mb-0">
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                          <li class="list-inline-item me-0"><a href="#"><i class="far fa-star text-warning"></i></a></li>
-                                      </ul>
-                                      <div class="product-price">
-                                          <span class="text-orange font-14">$30,000.00</span>
-                                          <del>$35,000.00</del>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="row mb-3">
-                                  <div class="col-md-4">
-                                      <a href="#"><img src="../../assets/images/blog/7.jpg" class="img-fluid h-100 rounded top-pro-image" alt="blog-image"></a>
-                                  </div>
-                                  <div class="col-md-8">
-                                      <h6 class="mb-0 mt-2 mt-md-0"><a href="#" class="text-decoration-none"> Lorem ipsum dolor sit cing</a></h6>
-                                      <ul class="property-rating list-inline mb-0">
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                          <li class="list-inline-item me-0"><a href="#"><i class="far fa-star text-warning"></i></a></li>
-                                          <li class="list-inline-item me-0"><a href="#"><i class="far fa-star text-warning"></i></a></li>
-                                      </ul>
-                                      <div class="product-price">
-                                          <span class="text-orange font-14">$30,000.00</span>
-                                          <del>$35,000.00</del>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="row">
-                                  <div class="col-md-4">
-                                      <a href="#"><img src="../../assets/images/blog/7.jpg" class="img-fluid h-100 rounded top-pro-image" alt="blog-image"></a>
-                                  </div>
-                                  <div class="col-md-8">
-                                      <h6 class="mb-0 mt-2 mt-md-0"><a href="#" class="text-decoration-none"> Lorem ipsum dolor sit cing</a></h6>
-                                      <ul class="property-rating list-inline mb-0">
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                          <li class="list-inline-item me-0"><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                      </ul>
-                                      <div class="product-price">
-                                          <span class="text-orange font-14">$30,000.00</span>
-                                          <del>$35,000.00</del>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div> -->
-
-              </div>
-          </div>
-      </div>
-  </div>
-</section>
+			<!-- Contact Form -->
+			<div class="lg:w-1/3">
+				<div class="bg-white rounded-lg shadow-[0px_-2px_6px_rgba(0,0,0,0.1),0px_2px_6px_rgba(0,0,0,0.08)] rounded-lg p-6 bg-white p-6">
+					<h3 class="text-xl font-semibold mb-4">Contact our Team!</h3>
+					<div class="mb-4"></div>
+					<form @submit.prevent="sendWhatsAppMessage">
+						<div class="mb-4">
+							<label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+							<input
+								type="text"
+								id="name"
+								v-model="form.name"
+								required
+								class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+							/>
+						</div>
+						<div class="mb-4">
+							<label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+							<input
+								type="email"
+								id="email"
+								v-model="form.email"
+								required
+								class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+							/>
+						</div>
+						<div class="mb-4">
+							<label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+							<input
+								type="tel"
+								id="phone"
+								v-model="form.phone"
+								class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+							/>
+						</div>
+						<div class="mb-4">
+							<label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+							<textarea
+								id="message"
+								v-model="form.message"
+								rows="4"
+								class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+							></textarea>
+						</div>
+						<button
+							type="submit"
+							class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors flex items-center justify-center"
+						>
+							<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
+								/>
+							</svg>
+							Send WhatsApp Message
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router'; // Use this to access the route parameters
+import { ref, onMounted, reactive, computed } from 'vue';
+import { useRoute } from 'vue-router';
 import { fetchOneProperty } from '../../server/supabase';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Navigation, Pagination } from 'swiper/modules';
 
-// Define the `property` variable
-const property = ref();
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-// Use the `useRoute` composable to access the route
+const property = ref(null);
 const route = useRoute();
 
+const carouselImages = computed(() => {
+	if (!property.value) return [];
+	return Array(5).fill(property.value.image);
+});
+
 onMounted(() => {
-  asyncData()
-  import('../../assets/css/style.css')
-  import('../../assets/css/bootstrap.min.css')
-})
+	asyncData();
+});
 
-
-// Fetch property data
 const asyncData = async () => {
-  const id = route.params.id; // Get the `id` from the route
-  console.log('id:', id);
-  property.value = await fetchOneProperty(id); // Fetch data using the `id`
-  console.log(property.value)
+	const id = route.params.id;
+	console.log('id:', id);
+	property.value = await fetchOneProperty(id);
+	console.log(property.value);
+};
+
+const form = reactive({
+	name: '',
+	email: '',
+	phone: '',
+	message: ''
+});
+
+const sendWhatsAppMessage = () => {
+	const phoneNumber = '+23057905369';
+	const message = encodeURIComponent(
+		`Hello, I'm interested in the property: ${property.value.name} (ID: ${property.value.property_id})\n\n` +
+			`Name: ${form.name}\n` +
+			`Email: ${form.email}\n` +
+			`Phone: ${form.phone}\n\n` +
+			`Message: ${form.message}` +
+			`Id:${property.id}`
+	);
+
+	const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+	window.open(whatsappUrl, '_blank');
+
+	// Reset form after sending
+	Object.keys(form).forEach((key) => (form[key] = ''));
 };
 </script>
 
-<style scoped>
+<style>
+.swiper-button-next,
+.swiper-button-prev {
+	color: white;
+	background-color: rgba(0, 0, 0, 0.5);
+	padding: 30px 20px;
+	border-radius: 5px;
+}
 
+.swiper-pagination-bullet-active {
+	background-color: white;
+}
 </style>
