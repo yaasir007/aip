@@ -64,6 +64,7 @@
                 ${{ property.price.toLocaleString() }}
               </span>
               <button
+              @click="goToShow(property.property_id)"
                 class="bg-[#036E5C] text-white px-4 py-2 rounded-lg hover:bg-[#025a4a] transition-colors duration-200"
               >
                 View Details
@@ -86,12 +87,20 @@
 import { ref, computed, onMounted } from "vue";
 import { BedIcon, BathIcon, SquareIcon, SlidersIcon } from "lucide-vue-next";
 import {fetchProperty} from '../server/supabase';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const isLoading = ref(true)
 
 const searchQuery = ref("");
 
 const properties = ref([])
+
+const goToShow = (id) => {
+  console.log("id" ,id)
+  router.push(`/properties/${id}`)
+}
 
 
 const initFetch = async () => {
