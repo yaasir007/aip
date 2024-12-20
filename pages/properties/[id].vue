@@ -22,7 +22,7 @@
 			<div class="lg:w-2/3 shadow-[0px_-2px_6px_rgba(0,0,0,0.1),0px_2px_6px_rgba(0,0,0,0.08)] rounded-lg p-6 bg-white">
 				<div class="flex items-center gap-4 mb-4">
 					<h1 class="text-3xl font-bold">{{ property.name }}</h1>
-					<span class="px-3 py-1 bg-green-500 text-white text-sm rounded-full">{{ property.property_status }}</span>
+					<span class="px-3 py-1 bg-green-500 text-white text-sm rounded-full" :style="isPropertyStatus">{{ property.property_status }}</span>
 				</div>
 				<p class="text-gray-600 mb-6">{{ property.address }}</p>
 
@@ -134,7 +134,7 @@
 						</div>
 						<button
 							type="submit"
-							class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors flex items-center justify-center"
+							class="w-full bg-[#056E5C] text-white py-2 px-4 rounded-md hover:bg-[#04584A] transition-colors flex items-center justify-center"
 						>
 							<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 								<path
@@ -163,6 +163,16 @@ import 'swiper/css/pagination';
 
 const property = ref(null);
 const route = useRoute();
+
+const isPropertyStatus = computed(() => {
+	if (property.property_status === 'For Sale') {
+		return { backgroundColor: 'red' }; // Return an object with CSS properties
+	}
+	if (property.property_status === 'For Rent') {
+		return { backgroundColor: 'blue' }; // Example: returning a different color for 'For Rent'
+	}
+	return {}; // Default empty style if none of the conditions are met
+});
 
 const carouselImages = computed(() => {
 	if (!property.value) return [];
