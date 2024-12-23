@@ -67,6 +67,10 @@ import NotFound from '../../components/NotFound/NotFound.vue';
 import { StarIcon, BedIcon, BathIcon, SquareIcon } from 'lucide-vue-next';
 import CreateListingForm from '../../components/CreateListingForm.vue';
 
+definePageMeta({
+	middleware: 'auth'
+});
+
 const listings = ref([]);
 const isLoading = ref(true);
 const user = ref(null);
