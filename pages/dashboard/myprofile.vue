@@ -19,7 +19,7 @@
 			</div>
 
 			<div class="mt-6">
-				<button class="bg-blue-500 text-white py-2 px-4 rounded-md mr-2">Edit Profile</button>
+				<!-- <button class="bg-blue-500 text-white py-2 px-4 rounded-md mr-2">Edit Profile</button> -->
 				<button @click="logoutSess" class="bg-red-500 text-white py-2 px-4 rounded-md">Logout</button>
 			</div>
 		</div>
