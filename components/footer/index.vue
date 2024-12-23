@@ -5,7 +5,7 @@ const viewport = useViewport();
 <template>
 	<footer class="bg-white">
 		<div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-			<div class="flex flex-col items-center gap-4 rounded-lg bg-[#036E5C] p-6 shadow-lg sm:flex-row sm:justify-between">
+			<!-- <div class="flex flex-col items-center gap-4 rounded-lg bg-[#036E5C] p-6 shadow-lg sm:flex-row sm:justify-between">
 				<strong class="text-xl text-white sm:text-xl"> Make Your Next Career Move! </strong>
 
 				<a class="inline-flex items-center gap-2 rounded-full border border-white bg-white px-8 py-3 text-[#036E5C]" href="#">
@@ -15,7 +15,7 @@ const viewport = useViewport();
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
 					</svg>
 				</a>
-			</div>
+			</div> -->
 
 			<div class="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
 				<div class="text-center sm:text-left">
