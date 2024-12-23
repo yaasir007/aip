@@ -1,15 +1,11 @@
-<script setup lang="ts">
-
-</script>
-
+<script setup lang="ts"></script>
 
 <template>
-  <HomeBannerWithFilters />
-  <HomeTopRatedProperty/>
-  <HomeStepsToTake />
-  <HomeCallToAction />
-  <HomeTestimonials />
+	<HomeBannerWithFilters />
+	<HomeTopRatedProperty />
+	<HomeStepsToTake />
+	<HomeCallToAction />
+	<!-- <HomeTestimonials /> -->
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
