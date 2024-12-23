@@ -162,21 +162,16 @@ export const signUp = async (email, password, name) => {
 
 // Get the current user
 export const getCurrentUser = async () => {
-  try {
-    const { data: { user }, error } = await supabase.auth.getUser()
+  const { data, error } = await supabase.auth.getSession();
 
-    if (error) {
-      console.error('Error fetching current user:', error.message)
-      return null
-    }
-
-    console.log('Current user:', user)
-    return user
-  } catch (err) {
-    console.error('Unexpected error:', err)
-    return null
+  if (error) {
+    console.error('Error fetching session:', error.message);
+    return null;
   }
-}
+
+  return data?.session?.user || null;
+};
+
 
 export const createProperty = async (propertyData) => {
   try {
