@@ -1,7 +1,7 @@
 <template>
 	<div v-if="property" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 		<!-- Image Carousel -->
-		<div class="mb-8">
+		<div class="mb-8" v-if="carouselImages.length > 1">
 			<swiper
 				:modules="[Navigation, Pagination]"
 				:slides-per-view="1"
@@ -12,19 +12,28 @@
 				class="h-[400px] md:h-[500px] lg:h-[600px]"
 			>
 				<swiper-slide v-for="(image, index) in carouselImages" :key="index">
-					<img :src="image" :alt="`${property.name} - View ${index + 1}`" class="w-full h-full object-cover rounded-lg" />
+					<img :src="image" :alt="`${property.name || 'N/A'} - View ${index + 1}`" class="w-full h-full object-cover rounded-lg" />
 				</swiper-slide>
 			</swiper>
+		</div>
+		<div v-else class="mb-8">
+			<img
+				:src="property.image || '/placeholder.svg'"
+				:alt="property.name || 'N/A'"
+				class="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-lg"
+			/>
 		</div>
 
 		<!-- Property Details -->
 		<div class="flex flex-col lg:flex-row gap-8">
 			<div class="lg:w-2/3 shadow-[0px_-2px_6px_rgba(0,0,0,0.1),0px_2px_6px_rgba(0,0,0,0.08)] rounded-lg p-6 bg-white">
 				<div class="flex items-center gap-4 mb-4">
-					<h1 class="text-3xl font-bold">{{ property.name }}</h1>
-					<span class="px-3 py-1 bg-green-500 text-white text-sm rounded-full" :style="isPropertyStatus">{{ property.property_status }}</span>
+					<h1 class="text-3xl font-bold">{{ property.name || 'N/A' }}</h1>
+					<span class="px-3 py-1 bg-green-500 text-white text-sm rounded-full" :style="isPropertyStatus">{{
+						property.property_status || 'N/A'
+					}}</span>
 				</div>
-				<p class="text-gray-600 mb-6">{{ property.address }}</p>
+				<p class="text-gray-600 mb-6">{{ property.address || 'N/A' }}</p>
 
 				<!-- Property Features -->
 				<div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
@@ -32,28 +41,28 @@
 						<i class="pi pi-home text-gray-400"></i>
 						<div>
 							<p class="text-sm text-gray-500">Living Area</p>
-							<p class="font-semibold">{{ property.sq_footage }} sqft</p>
+							<p class="font-semibold">{{ property.sq_footage || 'N/A' }} sqft</p>
 						</div>
 					</div>
 					<div class="flex items-center gap-2">
 						<i class="pi pi-building text-gray-400"></i>
 						<div>
 							<p class="text-sm text-gray-500">Bedrooms</p>
-							<p class="font-semibold">{{ property.bedrooms }}</p>
+							<p class="font-semibold">{{ property.bedrooms || 'N/A' }}</p>
 						</div>
 					</div>
 					<div class="flex items-center gap-2">
 						<i class="pi pi-shield text-gray-400"></i>
 						<div>
 							<p class="text-sm text-gray-500">Bathrooms</p>
-							<p class="font-semibold">{{ property.bathrooms }}</p>
+							<p class="font-semibold">{{ property.bathrooms || 'N/A' }}</p>
 						</div>
 					</div>
 					<div class="flex items-center gap-2">
 						<i class="pi pi-calendar text-gray-400"></i>
 						<div>
 							<p class="text-sm text-gray-500">Year Built</p>
-							<p class="font-semibold">{{ new Date(property.year_built).getFullYear() }}</p>
+							<p class="font-semibold">{{ property.year_built ? new Date(property.year_built).getFullYear() : 'N/A' }}</p>
 						</div>
 					</div>
 				</div>
@@ -61,7 +70,7 @@
 				<!-- Description -->
 				<div class="mb-8">
 					<h2 class="text-xl font-semibold mb-4">Description</h2>
-					<p class="text-gray-600 leading-relaxed">{{ property.property_description }}</p>
+					<p class="text-gray-600 leading-relaxed">{{ property.property_description || 'N/A' }}</p>
 				</div>
 
 				<!-- Additional Details -->
@@ -70,19 +79,19 @@
 					<div class="grid grid-cols-2 gap-4">
 						<div>
 							<p class="text-sm text-gray-500">Property ID</p>
-							<p class="font-semibold">{{ property.property_id }}</p>
+							<p class="font-semibold">{{ property.property_id || 'N/A' }}</p>
 						</div>
 						<div>
 							<p class="text-sm text-gray-500">Property Type</p>
-							<p class="font-semibold">{{ property.property_type }}</p>
+							<p class="font-semibold">{{ property.property_type || 'N/A' }}</p>
 						</div>
 						<div>
 							<p class="text-sm text-gray-500">Lot Size</p>
-							<p class="font-semibold">{{ property.lot_size }} acres</p>
+							<p class="font-semibold">{{ property.lot_size || 'N/A' }} acres</p>
 						</div>
 						<div>
 							<p class="text-sm text-gray-500">Agency</p>
-							<p class="font-semibold">{{ property.agency }}</p>
+							<p class="font-semibold">{{ property.agency || 'N/A' }}</p>
 						</div>
 					</div>
 				</div>
