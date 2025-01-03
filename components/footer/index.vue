@@ -1,5 +1,8 @@
 <script setup>
 const viewport = useViewport();
+const goToTermsAndConditions = () => {
+	window.open('/disclaimer', '_blank');
+};
 </script>
 
 <template>
@@ -105,11 +108,21 @@ const viewport = useViewport();
 
 					<ul class="mt-8 space-y-4 text-sm">
 						<li>
-							<a class="text-gray-700 transition hover:text-gray-700/75" href="#"> FAQs </a>
+							<NuxtLink to="/faqs" class="text-gray-500 transition hover:text-gray-500/75"> Move To Mauritius </NuxtLink>
 						</li>
 
 						<li>
-							<a class="text-gray-700 transition hover:text-gray-700/75" href="#"> Support </a>
+							<a
+								class="text-gray-700 transition hover:text-gray-700/75"
+								href="https://wa.me/<PHONE_NUMBER>?text=Hi%20Support"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Support
+							</a>
+						</li>
+						<li>
+							<a class="text-gray-700 transition hover:text-gray-700/75 cursor-pointer" @click="goToTermsAndConditions"> Terms and conditions </a>
 						</li>
 
 						<!-- <li>
@@ -142,7 +155,12 @@ const viewport = useViewport();
 					</li> -->
 
 					<li>
-						<a href="#" rel="noreferrer" target="_blank" class="text-teal-700 transition hover:text-teal-700/75">
+						<a
+							href="https://www.instagram.com/allinclusive.properties/"
+							rel="noreferrer"
+							target="_blank"
+							class="text-teal-700 transition hover:text-teal-700/75"
+						>
 							<span class="sr-only">Instagram</span>
 							<svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
 								<path
@@ -191,7 +209,12 @@ const viewport = useViewport();
 						</a>
 					</li> -->
 					<li>
-						<a href="https://www.tiktok.com" rel="noreferrer" target="_blank" class="text-teal-700 transition hover:text-teal-700/75">
+						<a
+							href="https://www.tiktok.com/@all.inclusive.properties?_t=ZM-8skxk3wsX3u&_r=1"
+							rel="noreferrer"
+							target="_blank"
+							class="text-teal-700 transition hover:text-teal-700/75"
+						>
 							<span class="sr-only">TikTok</span>
 							<svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
 								<path

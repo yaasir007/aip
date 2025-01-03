@@ -271,8 +271,7 @@ const sections = ref([
 		title: '10. Liability',
 		content: `
       <h3>10.1. Exclusion of Liability</h3>
-      <p>Nothing in these Terms and Conditions shall be construed to exclude or limit our liability for
-      death or personal injury caused by our negligence, or for fraudulent misrepresentation.</p>
+      <p>Nothing in these Terms will be deemed to exclude our liability to you for death or personal injury arising from our negligence, or for fraudulent misrepresentation.</p>
       <h3>10.2. Limitation of Liability</h3>
       <p>Subject to Clause 10.1, we shall not be liable for any failure, error, or unavailability of the
       Website, software, or Internet access, nor for any circumstances beyond our reasonable
