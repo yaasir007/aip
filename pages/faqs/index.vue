@@ -1,127 +1,201 @@
 <template>
-  <div class="min-h-screen bg-white text-gray-800">
-    <div class="max-w-4xl mx-auto px-4 py-12">
-      <h1 class="text-4xl font-bold text-center text-[#036E5C] mb-8">Frequently Asked Questions</h1>
+	<div class="relative bg-white overflow-hidden mt-10">
+		<div class="bg-gradient-to-r from-[#056E5C] to-[#13B7A9] mt-3 mb-4">
+			<div class="max-w-7xl mx-auto py-3 px-4">
+				<div class="flex items-center justify-between flex-wrap">
+					<div class="w-0 flex-1 flex items-center">
+						<p class="ml-3 font-medium text-white truncate">
+							<span class="md:hidden">Move to Paradise!</span>
+							<span class="hidden md:inline">Ready to make Mauritius your home? Start your journey to paradise today!</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Content Section -->
+		<div class="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+			<!-- Text Content -->
+			<div class="space-y-6">
+				<h2 class="text-xl font-bold tracking-wide uppercase">YOUNG PROFESSIONAL OCCUPATION PERMIT (YPOP)</h2>
+				<p class="text-gray-700 leading-relaxed">
+					In line with its growing development, Mauritius opens its doors for job market to foreign students who have studied in a tertiary education
+					institution in the country.
+				</p>
+				<p class="text-gray-700 leading-relaxed">
+					They are eligible for a maximum 3-year Occupation Permit, depending on the duration of the contract of employment.
+				</p>
+			</div>
 
-      <p class="text-center mb-8 text-gray-600">
-        Find answers to common questions about our property management services. Can't find what you're looking for? Feel free to contact us.
-      </p>
+			<!-- Image -->
+			<div class="relative">
+				<img
+					src="https://plus.unsplash.com/premium_photo-1684348962314-64fa628992f0?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+					alt="Young professionals working together"
+					class="rounded-lg shadow-xl w-full"
+				/>
+			</div>
+		</div>
+		<div class="relative bg-white overflow-hidden mt-10">
+			<!-- Content Section -->
+			<div class="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+				<!-- Text Content -->
+				<div class="space-y-6">
+					<h2 class="text-xl font-bold tracking-wide uppercase">FAMILY OCCUPATION PERMIT</h2>
+					<p class="text-gray-700 leading-relaxed">
+						The Family Occupation Permit allows the spouse of an Occupation Permit holder to invest or work in Mauritius without the need to apply
+						for a separate permit.
+					</p>
+					<p class="text-gray-700 leading-relaxed">
+						This permit is valid for the same duration as the main Occupation Permit holder and provides an opportunity for families to build their
+						lives together in Mauritius.
+					</p>
+					<div class="mt-8">
+						<h3 class="text-lg font-semibold mb-4">Key Benefits</h3>
+						<ul class="space-y-3 text-gray-700">
+							<li class="flex items-start">
+								<svg class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+								</svg>
+								Automatic right to work or invest
+							</li>
+							<li class="flex items-start">
+								<svg class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+								</svg>
+								Valid for the same duration as main permit
+							</li>
+							<li class="flex items-start">
+								<svg class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+								</svg>
+								Simplified application process
+							</li>
+						</ul>
+					</div>
+				</div>
 
-      <div class="mb-8">
-        <input
-          v-model="searchQuery"
-          type="text"
-          placeholder="Search FAQs..."
-          class="w-full px-4 py-2 rounded-lg border-2 border-[#036E5C] focus:outline-none focus:ring-2 focus:ring-[#036E5C] focus:border-transparent"
-        />
-      </div>
+				<!-- Image -->
+				<div class="relative">
+					<img
+						src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?q=80&w=2071&auto=format&fit=crop"
+						alt="Family enjoying life in Mauritius"
+						class="rounded-lg shadow-xl w-full object-cover h-[500px]"
+					/>
 
-      <div v-for="(category, index) in filteredFAQs" :key="index" class="mb-8">
-        <h2 class="text-2xl font-semibold text-[#036E5C] mb-4">{{ category.category }}</h2>
-        <div v-for="(faq, faqIndex) in category.faqs" :key="faqIndex" class="mb-4">
-          <button
-            @click="toggleFAQ(faq)"
-            class="flex justify-between items-center w-full text-left p-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
-          >
-            <span class="font-medium">{{ faq.question }}</span>
-            <ChevronDownIcon
-              :class="{ 'transform rotate-180': faq.isOpen }"
-              class="w-5 h-5 text-[#036E5C] transition-transform duration-200"
-            />
-          </button>
-          <transition
-            enter-active-class="transition duration-300 ease-out"
-            enter-from-class="transform scale-95 opacity-0"
-            enter-to-class="transform scale-100 opacity-100"
-            leave-active-class="transition duration-200 ease-in"
-            leave-from-class="transform scale-100 opacity-100"
-            leave-to-class="transform scale-95 opacity-0"
-          >
-            <div v-if="faq.isOpen" class="p-4 bg-white border border-gray-200 rounded-b-lg">
-              <p class="text-gray-600">{{ faq.answer }}</p>
-            </div>
-          </transition>
-        </div>
-      </div>
+					<!-- Overlay Info Box -->
+					<div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-lg">
+						<div class="flex items-center justify-between">
+							<div>
+								<p class="text-sm font-semibold text-gray-900">Processing Time</p>
+								<p class="text-sm text-gray-600">5 working days</p>
+							</div>
+							<div>
+								<p class="text-sm font-semibold text-gray-900">Validity</p>
+								<p class="text-sm text-gray-600">Up to 10 years</p>
+							</div>
+							<div>
+								<p class="text-sm font-semibold text-gray-900">Dependents</p>
+								<p class="text-sm text-gray-600">Included</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="relative bg-white overflow-hidden mt-10">
+			<!-- Content Section -->
+			<div class="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+				<!-- Text Content -->
+				<div class="space-y-6">
+					<h2 class="text-xl font-bold tracking-wide uppercase">PERMANENT RESIDENCE PERMIT (PRP)</h2>
+					<p class="text-gray-700 leading-relaxed">
+						Known as the Permanent Residence Permit (PRP), this programme is for expatriates seeking to work and live freely in Mauritius and make
+						it their second home.
+					</p>
+					<p class="text-gray-700 leading-relaxed">
+						It is a 20-year residency, open to investors, retirees, professionals, self-employed entrepreneurs, and their family.
+					</p>
+					<p class="text-gray-700 leading-relaxed">
+						This may be obtained under different conditions and is renewable for another 20 years, provided the residency requirements have been
+						fulfilled.
+					</p>
+				</div>
 
-      <div class="mt-12 p-6 bg-[#036E5C] rounded-lg text-white text-center">
-        <h2 class="text-2xl font-semibold mb-4">Still have questions?</h2>
-        <p class="mb-4">Our team is here to help. Contact us for personalized assistance.</p>
-        <button class="bg-white text-[#036E5C] font-medium py-2 px-6 rounded-lg hover:bg-gray-100 transition-colors duration-200">
-          Contact Us
-        </button>
-      </div>
-    </div>
-  </div>
+				<!-- Image -->
+				<div class="relative">
+					<img
+						src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop"
+						alt="Luxury villa with pool in Mauritius"
+						class="rounded-lg shadow-xl w-full h-[500px] object-cover"
+					/>
+
+					<!-- Overlay Info Box -->
+					<div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-lg">
+						<div class="flex items-center justify-between">
+							<div>
+								<p class="text-sm font-semibold text-gray-900">Duration</p>
+								<p class="text-sm text-gray-600">20 years</p>
+							</div>
+							<div>
+								<p class="text-sm font-semibold text-gray-900">Renewable</p>
+								<p class="text-sm text-gray-600">Yes</p>
+							</div>
+							<div>
+								<p class="text-sm font-semibold text-gray-900">Family</p>
+								<p class="text-sm text-gray-600">Included</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="relative bg-white overflow-hidden mt-10">
+			<!-- Content Section -->
+			<div class="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+				<!-- Text Content -->
+				<div class="space-y-6">
+					<h2 class="text-xl font-bold tracking-wide uppercase">PREMIUM VISA</h2>
+					<p class="text-gray-700 leading-relaxed">
+						Mauritius, one of the most beautiful islands in the world, has introduced a Premium Travel Visa, valid for a period of one year,
+						renewable, to welcome esteemed travellers seeking to prolong their feeling of wellness arising from the gorgeous turquoise blue sea with
+						silky sand beaches, tropical lagoons, the lush greens, the warmth and friendliness of locals...
+					</p>
+					<p class="text-gray-700 leading-relaxed">
+						It is a 20-year residency, open to investors, retirees, professionals, self-employed entrepreneurs, and their family.
+					</p>
+					<p class="text-gray-700 leading-relaxed">
+						This may be obtained under different conditions and is renewable for another 20 years, provided the residency requirements have been
+						fulfilled.
+					</p>
+				</div>
+
+				<!-- Image -->
+				<div class="relative">
+					<img
+						src="https://images.unsplash.com/photo-1542744094-24638eff58bb?q=80&w=2070&auto=format&fit=crop"
+						alt="Luxury villa with pool in Mauritius"
+						class="rounded-lg shadow-xl w-full h-[500px] object-cover"
+					/>
+
+					<!-- Overlay Info Box -->
+					<div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-lg">
+						<div class="flex items-center justify-between">
+							<div>
+								<p class="text-sm font-semibold text-gray-900">Duration</p>
+								<p class="text-sm text-gray-600">1 year</p>
+							</div>
+							<div>
+								<p class="text-sm font-semibold text-gray-900">Renewable</p>
+								<p class="text-sm text-gray-600">Yes</p>
+							</div>
+							<div>
+								<p class="text-sm font-semibold text-gray-900">Family</p>
+								<p class="text-sm text-gray-600">Included</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
-
-<script setup>
-import { ref, computed } from 'vue'
-import { ChevronDownIcon } from 'lucide-vue-next'
-
-const searchQuery = ref('')
-
-const faqData = ref([
-  {
-    category: 'General',
-    faqs: [
-      {
-        question: 'What services do you offer?',
-        answer: 'We offer a comprehensive range of property management services including tenant screening, rent collection, property maintenance, financial reporting, and more.',
-        isOpen: false
-      },
-      {
-        question: 'How do you handle tenant complaints?',
-        answer: 'We have a dedicated team that promptly addresses tenant concerns. We aim to resolve issues within 24-48 hours, depending on the nature of the complaint.',
-        isOpen: false
-      }
-    ]
-  },
-  {
-    category: 'Financial',
-    faqs: [
-      {
-        question: 'How often will I receive rental income?',
-        answer: 'We typically process rental payments to property owners on a monthly basis, usually within the first week of each month.',
-        isOpen: false
-      },
-      {
-        question: 'What fees do you charge for your services?',
-        answer: 'Our fees vary depending on the services required. We generally charge a percentage of the monthly rent, which covers most of our standard services. Please contact us for a detailed quote.',
-        isOpen: false
-      }
-    ]
-  },
-  {
-    category: 'Maintenance',
-    faqs: [
-      {
-        question: 'How do you handle property maintenance and repairs?',
-        answer: 'We have a network of trusted contractors for various maintenance needs. For minor repairs, we handle them promptly. For major repairs, we consult with property owners before proceeding.',
-        isOpen: false
-      },
-      {
-        question: 'Do you conduct regular property inspections?',
-        answer: 'Yes, we conduct routine property inspections to ensure the property is well-maintained and to identify any potential issues early on.',
-        isOpen: false
-      }
-    ]
-  }
-])
-
-const filteredFAQs = computed(() => {
-  if (!searchQuery.value) return faqData.value
-
-  return faqData.value.map(category => ({
-    ...category,
-    faqs: category.faqs.filter(faq =>
-      faq.question.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      faq.answer.toLowerCase().includes(searchQuery.value.toLowerCase())
-    )
-  })).filter(category => category.faqs.length > 0)
-})
-
-const toggleFAQ = (faq) => {
-  faq.isOpen = !faq.isOpen
-}
-</script>

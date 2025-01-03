@@ -16,7 +16,7 @@
 
 							<NuxtLink to="/about" class="text-gray-500 transition hover:text-gray-500/75"> About </NuxtLink>
 
-							<NuxtLink to="/faqs" class="text-gray-500 transition hover:text-gray-500/75"> FAQs </NuxtLink>
+							<NuxtLink to="/faqs" class="text-gray-500 transition hover:text-gray-500/75"> Move To Mauritius </NuxtLink>
 						</ul>
 					</nav>
 

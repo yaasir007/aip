@@ -19,9 +19,13 @@
 				</div>
 			</div>
 			<div class="mt-10 text-center">
-				<button class="bg-white text-[#056e5c] font-bold py-2 px-6 rounded-full hover:bg-teal-100 transition duration-300 text-sm">
+				<a
+					href="https://wa.me/1234567890?text=Hello,%20I%20am%20interested%20in%20security%20solutions."
+					target="_blank"
+					class="bg-white text-[#056e5c] font-bold py-2 px-6 rounded-full hover:bg-teal-100 transition duration-300 text-sm"
+				>
 					Discover Solutions
-				</button>
+				</a>
 			</div>
 		</div>
 		<div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-5">
