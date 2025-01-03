@@ -207,7 +207,7 @@ const form = reactive({
 });
 
 const sendWhatsAppMessage = () => {
-	const phoneNumber = '+23057905369';
+	const phoneNumber = '+23055365085';
 	const message = encodeURIComponent(
 		`Hello, I'm interested in the property: ${property.value.name} (ID: ${property.value.property_id})\n\n` +
 			`Name: ${form.name}\n` +

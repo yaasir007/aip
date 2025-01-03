@@ -53,7 +53,7 @@ const sections = ref([
       and managed by All Inclusive Pro Marketing Ltd, a Private Limited Company which
       registered office is located at CNR JOSEPH RIVIERE STREET & DAUPHINE
       STREET BELFORT TOWER, OFFICE A2 / LEVEL 4 PORT LOUIS MAURITIUS.
-      BRN : C24212702 – aip@allinclusive.properties tel.</p>
+      BRN : C24212702 – aip@allinclusive.properties tel.+23055365085</p>
       <p>1.1. These Terms and Conditions include our Privacy Policy and are collectively referred to
       as "these Terms".</p>
       <p>1.2. These terms represent the whole agreement between you and us.</p>

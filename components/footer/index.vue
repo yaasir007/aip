@@ -114,7 +114,7 @@ const goToTermsAndConditions = () => {
 						<li>
 							<a
 								class="text-gray-700 transition hover:text-gray-700/75"
-								href="https://wa.me/<PHONE_NUMBER>?text=Hi%20Support"
+								href="https://wa.me/+23055365085?text=Hi%20AIP Support"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
